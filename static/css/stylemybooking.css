@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+
+.bookingbox{
+    width: 360px;
+    height: 360px;
+    margin: auto;
+    background-color: aliceblue;
+    border-radius: 30px;
+}

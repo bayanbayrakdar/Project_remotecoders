@@ -37,9 +37,11 @@ body {
 
 .days div {
     padding: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid gray;
     margin: 2px;
     cursor: pointer;
+    background-color:rgb(58, 109, 111);
+
 }
 
 .days div:hover {

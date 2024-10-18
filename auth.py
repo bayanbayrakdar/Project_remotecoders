@@ -84,7 +84,7 @@ def signup():
 
     
 
-    Data_user=users(username,email,password)
+    # Data_user=users(username,email,password)
 
     
     if confirm!=password:
@@ -112,4 +112,6 @@ def signup():
     
 
 
+if __name__ == "__main__":
+    app.run(debug=True)
 
