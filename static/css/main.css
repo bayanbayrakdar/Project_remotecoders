@@ -1,0 +1,18 @@
+.row {
+    background-color: #003366 !important; 
+    border: 20px;
+    margin-bottom: 50px;
+}
+.card-body{
+    background-color: #5883ae !important; 
+
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+}

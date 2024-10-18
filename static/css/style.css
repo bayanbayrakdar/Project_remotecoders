@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=FAMILY_NAME:wght@WEIGHT_OR_RANGE&display=swap');
+
+
+body{
+    background-size:cover;
+    display: flex;
+    justify-content: center;
+
+    background-position: center;
+    background-image:url("../img/image.png");
+    
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+} 
+.signup_box{
+    width: 360px;
+    height: 620px;
+    margin: auto;
+    background-color: aliceblue;
+    border-radius: 30px;
+}
+h1{
+    text-align: center;
+    padding-top: 30px;
+}
+h4{
+    text-align: center;
+}
+form{
+    width: 300px;
+    margin-left: 20px;
+}
+form label{
+    display: flex;
+    margin-top: 20px;
+    font-size: 18px;
+    align-items: center;
+}
+form input{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    border: 1px solid gray;
+    outline: none;
+}
+input[type="button"]{
+    background-color: rgb(26, 69, 209);
+    margin-top: 20px;
+    width: 32px;
+    height: 35px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    /* display: flex;
+    flex-direction:column;
+    align-content: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; */
+}
+p{
+    text-align: center;
+    padding-top: 20px;
+    font-size: 15px;
+} */
+.wrapper{
+    display: flex;
+    text-align: center;
+
+
+}
+i {
+    position: absolute;
+    right: 20px;
+    top:50%;
+    transform: translateY(-30%);
+    font-size: 20px;
+    margin: -10px 0 10px;
+
+}
+
+
