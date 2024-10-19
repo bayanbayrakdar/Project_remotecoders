@@ -1,24 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/stylemybooking.css">
 </head>
+
 <body>
 
     <h1 id="text">this is dashborde patient</h1>
+    <a href="{{url_for('booking')}}"><button class="btn btn-primary"></button></a>
     <div class="bookingbox">
         <h4 style="color: cadetblue;" style="margin-top: 100px;" style="padding-top: 50px;">My Booking</h4><br>
-        
         <h4>name patient : <span id="name_patient">{{name_patient}}</span></h4><br>
         <h4>Age Patient : <span id="age_patient">{{age_patient}}</span></h4><br>
         <h4>Date: <span id="date">{{Date}}</span></h4><br>
+        <h4>Time: <span id="Time">{{Time}}</span></h4>
+        <div class="content">
+
+            <form action="/veiw booking" method="DELETE">
+                <button type="button" id="delete_button">Delete Reservation</button>
+            </form>
+
+        </div>
+
+
+
+
+
+
+
+        <!-- <form action="/veiw_booking" method="DELETE">
+
+            <div class="text-center">
+                <button type="button" class="btn btn-outline-danger" id="delete_button">Delete Reservation</button>
+
+            </div> -->
+        <!-- </form>
+        <form action="/veiw_booking" method="PUT">
+            <div><button id="update">update booking</button></div>
+        </form>
+        <form action="/veiw_booking" method="POST">
+            <div><button id="add">add booking</button></div>
+        </form> -->
     </div>
 
 
+    <table id="outputTable" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th style="text-align:center;">Id patient</th>
+                <th style="text-align:center;">Name Patient</th>
+                <th style="text-align:center;">Age Patient</th>
+                <th style="text-align:center;">Time</th>
+                <th style="text-align:center;">Date</th>
+                <th style="text-align:center;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="data" style="text-align:center;">{{id}}</td>
+                <td class="data" style="text-align:center;">{{name_patient}}</td>
+                <td class="data" style="text-align:center;">{{age_patient}}</td>
+                <td class="data" style="text-align:center;">{{Time}}</td>
+                <td class="data" style="text-align:center;">{{Date}}</td>
+                <td style="text-align:center;">
+                    <button class="save">Save</button>
+                    <button class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit</button>
+                    <button class="delete" onclick="removeRow(this)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="overlay"></div>
+    <div id="button">
+        <button class="btn btn-success" onclick="addRow()">Add new</button>
+    </div>
+
+
+    <div class="model" id="modal">
+        <div class="model-header">New Booking</div>
+        <button class="close-button">&times;</button>
+        <div class="model-body">
+            hiiiii
+        </div>
+        
+    </div>
     
-    
+    <div class="active" class="overlay"></div>
+
+    <!-- Modal structure -->
+
+    <div class="popup">
+
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true">×</span><span
+                            class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content"></div>
+            </div>
+            <div class="modal-dialog">
+                <div class="modal-content"></div>
+            </div>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×
+                            </span><span class="sr-only">Close</span>
+
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/Edit.js"></script>
+
+
+
 </body>
+
 </html>

@@ -12,10 +12,11 @@ app=flask.Flask(__name__)
 Data_user = None
 patient = None
 class Patient:
-    def __init__(self,name, age,date):
+    def __init__(self,name, age,date, time):
         self.name=name
         self.age=age
         self.date=date
+        self.time=time
 
 class users:
     def __init__(self,name_user,email,password):
@@ -139,12 +140,13 @@ def appointment():
         name_patient = data.get("name_patient")
         age_patient = data.get("age_patient")
         Date= data.get("Date")
+        Time=data.get("Time")
 
-        print(Date["day"])
+        print(Time["Hour"])
         
         
 
-        patient=Patient(name_patient,age_patient,Date)
+        patient=Patient(name_patient,age_patient,Date,Time)
         
 
         if not name_patient or not isinstance(name_patient, str):
@@ -161,6 +163,10 @@ def appointment():
                 "day":Date["day"],
                 "month":Date["month"],
                 "year":Date["year"],
+            },
+            "Time" : {
+                "Hour" : Time["Hour"],
+                "Minute" : Time["Minute"]
             }
         }
 
@@ -194,12 +200,15 @@ def veiw_booking():
 
     global patient
 
-    return render_template("veiw_booking.html", name_patient=patient.name if patient else "You are Donki", age_patient=patient.age if patient else "You are Donki" , 
-                           Date=patient.date if patient else "You are Donki")
+    return render_template("veiw_booking.html", name_patient=patient.name if patient else " ", age_patient=patient.age if patient else " " , 
+                           Date=f"{patient.date['day']}/{patient.date['month']}/{patient.date['year']}" if patient else " " , Time=f"{patient.time['Hour']}:{patient.time['Minute']}" if patient else " " , id=123)
 
 
-# @app.route('/veiw_booking',methods=['GET', 'POST'])
-# def veiw_booking1():
+# @app.route('/veiw_booking',methods=['GET', 'POST','DELETE','PUT'])
+# def Edit_booking():
+#     if methods==['DELETE']:
+
+
 
 
 #     with open("oppointment.json" , 'r') as file:

@@ -14,3 +14,149 @@
     background-color: aliceblue;
     border-radius: 30px;
 }
+
+
+body{
+    font-family: Arial, sans-serif;
+  }
+  .table{
+    width: 100%;
+    thead{
+      th{
+        padding: 10px 10px;
+        background: #00adee;
+        font-size: 15px;
+        text-transform: uppercase;
+        vertical-align: top;
+        color: #1D4A5A;
+        font-weight: normal;
+        text-align: left;
+      }
+    }
+    tbody{
+      tr{
+        td{
+          padding: 10px;
+          background: #f2f2f2;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  
+  .add, .edit, .save, .delete{
+    outline: none;
+    background: none;
+    border: none;
+  }
+  
+  .edit, .save, .delete{
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  
+  .add{
+    float: right;
+    background: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-size: 13px;
+    padding: 0;
+    padding: 3px 5px;
+    cursor: pointer;
+    
+    &:hover{
+      background: #ffffff;
+      color: #00adee;
+    }
+  }
+  
+  .save{
+    display: none;
+    background: #32AD60;
+    color: #ffffff;
+    
+    &:hover{
+      background: darken(#32AD60, 10%);
+    }
+  }
+  
+  .edit{
+    background: #2199e8;
+    color: #ffffff;
+    
+    &:hover{
+      background: darken(#2199e8, 10%);
+    }
+  }
+  
+  .delete{
+    background: #EC5840;
+    color: #ffffff;
+    
+     &:hover{
+      background: darken(#EC5840, 10%);
+    }
+  }
+
+  .model {
+    position: fixed;
+    background-color: #fff;
+    padding: 6%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 30%;
+    border-radius: 30px;
+    z-index: 10;
+    display: none;
+    border: 1px solid black; /* Added semicolon */
+    max-width: 80%;
+}
+
+.model-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black; /* Added semicolon */
+}
+
+.model-header .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.model-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.model-body {
+    padding: 10px 15px;
+}
+
+#overlay { 
+    position: fixed;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
