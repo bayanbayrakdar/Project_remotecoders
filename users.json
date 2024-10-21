@@ -1,42 +1,20 @@
 [
   {
-    "username": "jkh",
-    "email": "",
-    "password": ""
+    "idPatient": 1,
+    "username": "raghad",
+    "email": "raghad@gmail.com",
+    "password": "k"
   },
   {
-    "username": "jh",
-    "email": "bhv",
-    "password": "jhjhb"
+    "idPatient": 2,
+    "username": "hi",
+    "email": "hi@gma",
+    "password": "l"
   },
   {
-    "username": "",
-    "email": "",
-    "password": "12",
-    "confim": "12"
-  },
-  {
-    "username": "bazan",
-    "email": "",
-    "password": "",
-    "confim": ""
-  },
-  {
-    "username": "bayan",
-    "email": "",
-    "password": "",
-    "confim": ""
-  },
-  {
-    "username": "esraa",
-    "email": "mm@g.com",
-    "password": "1",
-    "confim": "1"
-  },
-  {
-    "username": "c",
-    "email": "bayan.bayrakdar98@gmail.com",
-    "password": "c",
-    "confim": "c"
+    "idPatient": 3,
+    "username": "d",
+    "email": "d@e.com",
+    "password": "d"
   }
 ]

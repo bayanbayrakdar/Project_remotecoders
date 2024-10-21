@@ -1,15 +1,22 @@
 
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request,flash,url_for, jsonify, redirect,render_template
 import flask
 import json
 import os
+from datetime import datetime
+import bcrypt
+
+
 
 #save booking info to json file
 import os
 import json
 
 app=flask.Flask(__name__)
-Data_user = None
+
+app.secret_key = 'asdfghjkl'  # Set this to a random string
+id_patient=0
+UserClass = None
 patient = None
 class Patient:
     def __init__(self,name, age,date, time):
@@ -18,105 +25,140 @@ class Patient:
         self.date=date
         self.time=time
 
-class users:
-    def __init__(self,name_user,email,password):
+class Users:
+    def __init__(self,idpatient,name_user,email,password):
+        self.idpatient=idpatient
         self.name_user=name_user
         self.email=email
         self.password=password
 
+    def getid(self):
+        return self.idpatient
+    
+    def getname(self):
+      return self.name_user
+    def getemail(self):
+      return self.email
+    def getpassword(self):
+        return self.password
+
+
+
+
+def getjson(file):
+
+        # Load existing users or create a new list
+    if os.path.exists('static/'+file+'.json'):
+        with open('static/'+file+'.json', 'r') as f:
+            fileJson = json.load(f)
+    else:
+            fileJson = jsonify(message="No user find"), 404
+
+    return fileJson
+
+
 
 @app.route("/")
-def home():
+def home1():
+    
     return render_template("home.html")
 
+def authenticate(username, password):
+    # Dummy authentication logic (replace with your own)
+    return username == "admin" and password == "password"
 
-@app.route("/login")
-def login_page():
-        return render_template("login.html")
-
-@app.route("/login" , methods=['POST'])
+@app.route("/login", methods=['POST' ,'GET'])
 def login():
-    data=request.get_json()
 
-    username=data.get("username")
-    password=data.get("password")
-    user_data={"username": username ,"password": password}
-
-    # Load existing users or create a new list
-    if os.path.exists('users.json'):
-        with open('users.json', 'r') as f:
-            user_data = json.load(f)
-    else:
-            user_data = jsonify(message="No user find"), 404
+    return render_template('login.html') 
 
 
-    for user in user_data:
-            if user['username'] == username and user['password'] == password:  # Use hashed password check in production
-                return jsonify(message='Login successful!', success=True), 200
+@app.route("/home", methods=['GET', 'POST'])
+def home():
+    if request.method == 'POST':
+        username = request.form.get("username_login")
+        password = request.form.get("password_login")
+
+        users = getjson("users")  # Assuming this function returns a list of user dictionaries
+
+        # Check if username and password are provided
+        if not username or not password:
+            flash('Both username and password are required.', 'error')
+            return render_template("login.html") 
             
-            
-    return jsonify(message='Invalid username or password.', success=False), 401
+
+
+
+        for user in users:
+            if user['username'] == username or user['password'] == password:
+
+                flash('Login successful!', 'success')
+                return render_template("home.html")  # Redirect on successful login
+            else:
+                flash('Invalid username or password. Please try again.', 'error')
+                return render_template("login.html")  # Redirect if password is incorrect
+
+
+
+    return render_template('login.html')
 
 
 @app.route("/signup")
 def signup_page():
     return render_template("signup.html")
 
-@app.route("/signup", methods=['POST'])
+
+
+@app.route('/signup', methods=['POST'])
 def signup():
-    # Get the JSON data from the request
- 
-    data = request.get_json()
-    
-
-
-    # chech if user exict 
+    global UserClass 
+    data = request.json
     username = data.get('username')
     email = data.get('email')
-    password = data.get('password') 
-    confirm=data.get('confirm')
-
-    # Prepare the user data
-    user_data = {
-        "username": username,
-        "email": email,
-        "password": password ,
-        "confim":confirm
-    }
-
+    password = data.get('password')
+    confirm = data.get('confirm')
     
-
-    # Data_user=users(username,email,password)
-
-    
-    if confirm!=password:
-        return jsonify(message='Passwords do not match!'), 400
-    
-    if not username and not email  and not password  and not confirm :
-        jsonify(message='must fill all ')
-
-
-    # Load existing users or create a new list
     if os.path.exists('users.json'):
         with open('users.json', 'r') as f:
             users = json.load(f)
     else:
         users = []
 
-    # Append new user data
-    users.append(user_data)
+        # Generate a new patient ID safely
+    if users:  # Check if users list is not empty
+        idPatient = max(user.get('idPatient', 0) for user in users) + 1
+    else:
+        idPatient = 1  # Start from 1 if no users exist
 
-    # Write back to the JSON file
-    with open('users.json', 'w') as f:
-        json.dump(users, f, indent=2)
 
-    return jsonify(message='User registered successfully!')
+    print("ss")
+
+    if username and email and password and confirm:
+        if password != confirm:
+            return jsonify(message='Passwords do not match!'), 400
+        if any(user['username'] == username for user in users):
+            return jsonify(message='Username already exists!'), 400
+        
+
+        
+
+        
+        user_data = {
+            "idPatient":idPatient,
+            
+            'username': username,
+            'email': email,
+            'password': password
+        }
+        users.append(user_data)
+        UserClass=Users(idPatient,username,email,password)
+
+        with open('users.json', 'w') as f:
+            json.dump(users, f, indent=2)
+
+        return jsonify(message='User registered successfully!'), 201
     
-
-
-
-
-
+    return jsonify(message='Please fill in all fields.'), 400
    
 @app.route("/about")
 def about():
@@ -132,6 +174,7 @@ def booking():
 @app.route("/booking", methods=['POST'])
 def appointment():
     global patient
+    global UserClass
     if request.method == 'POST':
         data = request.get_json()
         
@@ -169,6 +212,7 @@ def appointment():
                 "Minute" : Time["Minute"]
             }
         }
+        print(UserClass.getid())
 
         # Load existing appointments or create a new list
         if os.path.exists('appointment.json'):
@@ -195,13 +239,32 @@ def appointment():
 
 
 
-@app.route('/veiw_booking')
+@app.route('/veiw_booking', methods=['POST', 'GET'])
 def veiw_booking():
+    global UserClass
 
     global patient
 
+    if request.method == 'POST':
+        NewName=request.form.get("patientname")
+        NewAge=request.form.get("patientage")
+        datePatient=request.form.get("date")
+        datePatient=datetime.strptime(datePatient, '%Y-%m-%dT%H:%M')
+        NewDate=datePatient.date()
+        NewTime=datePatient.time()
+        
+
+        newpatient=Patient(NewName,NewAge,NewDate,NewTime)
+        
+
+        return render_template("veiw_booking.html", name_patient=newpatient.name if patient else " ", age_patient=newpatient.age if patient else " " , 
+                           Date=newpatient.date if patient else " " , Time=newpatient.time if patient else " " , id=UserClass.getid())
+
+
+
+
     return render_template("veiw_booking.html", name_patient=patient.name if patient else " ", age_patient=patient.age if patient else " " , 
-                           Date=f"{patient.date['day']}/{patient.date['month']}/{patient.date['year']}" if patient else " " , Time=f"{patient.time['Hour']}:{patient.time['Minute']}" if patient else " " , id=123)
+                           Date=f"{patient.date['day']}/{patient.date['month']}/{patient.date['year']}" if patient else " " , Time=f"{patient.time['Hour']}:{patient.time['Minute']}" if patient else " " , id=UserClass.getid())
 
 
 # @app.route('/veiw_booking',methods=['GET', 'POST','DELETE','PUT'])

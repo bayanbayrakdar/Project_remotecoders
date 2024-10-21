@@ -1,3 +1,8 @@
+
+
+const name_patient = document.getElementById("name_patient")
+const age_patient = document.getElementById("age_patient")
+const newbooking_button=document.getElementById("newbooking_button")
 //delet item 
 
 
@@ -36,42 +41,82 @@ function removeRow(button) {
     row.remove();
 }
 
-
-function addRow() {
-    const table = document.getElementById('outputTable').getElementsByTagName('tbody')[0];
-    const newRow = table.insertRow(); 
-
+document.addEventListener("DOMContentLoaded", function() {
+    function addRow(event) {
+        event.preventDefault();
     
-    const cell1 = newRow.insertCell(0);
-    const cell2 = newRow.insertCell(1);
-    const cell3 = newRow.insertCell(2);
-    const cell4 = newRow.insertCell(3);
-    const cell5 = newRow.insertCell(4);
-    const cell6 = newRow.insertCell(5);
-
+        const table = document.getElementById('outputTable').getElementsByTagName('tbody')[0];
     
-    cell1.innerHTML = "0"; 
-    cell2.innerHTML = "New Name"; 
-    cell3.innerHTML = "New Age"; 
-    cell4.innerHTML = "New Time"; 
-    cell5.innerHTML = "New Date"; 
-    cell6.innerHTML = `
-        <button class="save">Save</button>
-        <button class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit</button>
-        <button class="delete" onclick="removeRow(this)">Delete</button>
-    `;
+        const newdata = localStorage.getItem("newdata");
+        const newtime = localStorage.getItem("newtime");
+
+        const newRow = table.insertRow(); 
+    
+        const cell1 = newRow.insertCell(0);
+        const cell2 = newRow.insertCell(1);
+        const cell3 = newRow.insertCell(2);
+        const cell4 = newRow.insertCell(3);
+        const cell5 = newRow.insertCell(4);
+        const cell6 = newRow.insertCell(5);
+    
+        cell1.innerHTML = "0"; // Replace with a dynamic ID if necessary
+        cell2.innerHTML = name_patient.value; 
+        cell3.innerHTML = age_patient.value; 
+        cell4.innerHTML = newdata || "No Data"; 
+        cell5.innerHTML = newtime || "No Time"; 
+        cell6.innerHTML = `
+            <button class="save">Save</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit</button>
+            <button class="delete" onclick="removeRow(this)">Delete</button>
+        `;
+    }
+
+    const newbooking_button = document.getElementById('newbooking_button'); // Make sure to select the correct button
+    if (newbooking_button) {
+        newbooking_button.addEventListener('click', addRow); // Use 'click' instead of 'submit'
+    }
+});
+
+
+
+
+function showModal() {
+    document.getElementById('modal').style.display = 'block';
+    document.getElementById('overlay').classList.add('active');
+}
+
+function hideModal() {
+    document.getElementById('modal').style.display = 'none';
+    document.getElementById('overlay').classList.remove('active');
 }
 
 
-// document.getElementById('button').addEventListener('click', () =>{
+function showCal() {
+    const calendar = document.getElementById('calendar');
+    if (calendar) {
+        // Toggle calendar display
+        calendar.style.display = calendar.style.display === 'none' ? 'block' : 'none';
+    }
+}
 
-//     const popup =document.getElementById('popup')
-//     const overlay =document.getElementById('overlay')
-//     popup.style.display="block"
-//     overlay.style.display="block"
-//     // if(popup.style.display=="none" || popup.style.display=== ""){
+document.addEventListener("DOMContentLoaded", function() {
+    const input = document.getElementById('cal');
+    input.addEventListener('change', function() {
+        const dateTime = new Date(this.value);
+        const date = dateTime.toISOString().split('T')[0]; // YYYY-MM-DD
+        const time = dateTime.toTimeString().split(' ')[0]; // HH:MM:SS
+        localStorage.setItem("newdata",date)
+        localStorage.setItem("newtime",time)
 
-//     // }
-//     }
 
-// )
+    });
+});
+
+
+// const newappointment={
+//     name_patient: name_patient.value,
+//     age_patient: age_patient.value,
+//     newdata:newdata,
+//     newtime:newtime
+// }
+// console.log(newappointment)

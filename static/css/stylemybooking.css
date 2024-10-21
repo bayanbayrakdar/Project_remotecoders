@@ -107,13 +107,13 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30%;
-    height: 30%;
+    width: 50%;
+    height: 100%;
     border-radius: 30px;
     z-index: 10;
     display: none;
-    border: 1px solid black; /* Added semicolon */
-    max-width: 80%;
+    border: 1px solid black;
+    max-width: 100%;
 }
 
 .model-header {
@@ -121,7 +121,7 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid black; /* Added semicolon */
+    border-bottom: 1px solid black;
 }
 
 .model-header .title {
@@ -144,7 +144,7 @@ body{
 
 #overlay { 
     position: fixed;
-    opacity: 0;
+    opacity: 1;
     background-color: rgba(0, 0, 0, 0.5);
     top: 0;
     left: 0;

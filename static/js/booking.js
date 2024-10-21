@@ -67,7 +67,7 @@ function changeMin(count) {
     localStorage.setItem("minute",currentMin)
 }
 
-// Initial display
+// // Initial display
 displayTime();
 
 const SelectDete = (event) => {

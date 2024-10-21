@@ -5,10 +5,16 @@ const confirm = document.getElementById("confirm");
 const button_signup = document.getElementById("button_signup");
 
 document.addEventListener("DOMContentLoaded", function() {
-    
+    const form = document.getElementById("signupForm"); 
+
+    if (form) {
+        form.addEventListener("submit", signup);
+    }
+
     function signup(event) {
         event.preventDefault();
 
+        // Here, we are not initializing id_patient in the frontend, it's managed by the backend
         const userData = {
             username: username.value,
             email: email.value,
@@ -22,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem("password_signup", userData.password);
         localStorage.setItem("confirm_password", userData.confirm);
         
-        // Send data to Flask server
         fetch('/signup', {
             method: 'POST',
             headers: {
@@ -32,21 +37,18 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
+                return response.json().then(err => { throw new Error(err.message); });
             }
-            return response.json();
+            return response.json();  // Parse JSON from the response
         })
         .then(data => {
-            alert(data.message); // Show success message
+            console.log(data.message);  // Handle the success message
+            // Redirect to the home page on successful registration
+            window.location.href = '/';  // Change this to your home URL
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('There was a problem with the fetch operation:', error);
+            // Optionally display an error message to the user
         });
-    }
-
-    
-    const form = document.getElementById("signupForm"); 
-    if (form) {
-        form.addEventListener("submit", signup);
     }
 });

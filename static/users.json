@@ -1,0 +1,47 @@
+[
+  {
+    "username": "mm",
+    "email": "f@w",
+    "password": "2"
+  },
+  {
+    "username": "soso",
+    "email": "sos@k.com",
+    "password": "1"
+  },
+  {
+    "username": "sjn",
+    "email": "f@w",
+    "password": "1"
+  },
+  {
+    "id_patient": 1,
+    "username": "eeeee",
+    "email": "kldwm@ds.com",
+    "password": "1"
+  },
+  {
+    "idPatient": 1,
+    "username": "d",
+    "email": "kldwm@ds.com",
+    "password": "2"
+  },
+  {
+    "idPatient": 2,
+    "username": "eeeeed",
+    "email": "kldwm@ds.com",
+    "password": "1"
+  },
+  {
+    "idPatient": 3,
+    "username": "ahmad",
+    "email": "ahmad@gmail.com",
+    "password": "2"
+  },
+  {
+    "idPatient": 4,
+    "username": "jojo",
+    "email": "jojo@gmail.com",
+    "password": "jojo"
+  }
+]
