@@ -11,88 +11,88 @@
 </head>
 
 <body>
-
-    <h1>booking appointment</h1>
-    <br><br>
-    <div class="alert alert-success" style="display: none; " id="successMessage">
-        <p id="success"></p>
-    </div>
-
-
-
-
-
-    <br><br>
-    <!-- <form>
-        <label for="doctor">choose specialty</label>
-        <select name="specialty" id="specialty">
-            <option value="Cardiology">Cardiology</option>
-            <option value="Orthopedics">Orthopedics</option>
-            <option value="Pediatrics">Pediatrics</option>
-            <option value="Neurology">Neurology</option>
-            <option value="Dermatology">Dermatology</option>
-            <option value="General Surgery">General Surgery</option>
-
-        </select>
-
-    </form> -->
-    <div class="col-3">
-        <a href="{{url_for('veiw_booking')}}"><button type="button" class="btn btn-outline-info">Veiw My Booking
-            </button></a>
-    </div>
-
-
-
-    <form id=booking method="POST">
-        <input id=name_patient type="text" placeholder="Please Enter name patient" required>
-
-        <br><br>
-
-
-        <input id=age_patient type="text" placeholder="Please Enter age patient" required>
-
-        <br><br>
-        <div class="calendar">
-            <div class="month">
-                <button onclick="changemonth(-1)">&#10094</button>
-                <div class="month-year" id="month-year"></div>
-                <button onclick="changemonth(1)">&#10095</button>
-            </div>
-            <div class="weekdays">
-                <div>sun</div>
-                <div>mon</div>
-                <div>tue</div>
-                <div>Wen</div>
-                <div>thu</div>
-                <div>Fri</div>
-                <div>sat</div>
-            </div>
-            <div class="days" id="days"></div>
-
-
-
-        </div>
-
-
-
-
-        <p id="timeDisplay"></p>
-        <button onclick="changeTime(-1)">⬇️ Decrease Hour</button>
-        <button onclick="changeTime(1)">⬆️ Increase Hour</button>
+    <div class="container mt-5">
+        <h1>booking appointment</h1>
+        <h2 id="welcomeMessage"></h2>
         <br>
-        <p id="minDisplay"></p>
-        <button onclick="changeMin(-1)">⬇️ Decrease min</button>
-        <button onclick="changeMin(1)">⬆️ Increase min</button>
+        <div class="alert alert-success" style="display: none; " id="successMessage">
+            <p id="success"></p>
+        </div>
 
-
-        <div class="text-center">
-            <button type="submit" class="btn btn-danger" id="booking_button">Confirm Booking</button>
-
+        <div class="text-center mb-4">
+            <a href="{{url_for('veiw_booking')}}"><button type="button" class="btn btn-outline-info">Veiw My Booking
+                </button></a>
         </div>
 
 
 
-    </form>
+
+        <form action="/veiw_booking"  id=booking method="POST">
+            <div class="text-center">
+                <button type="submit" class="btn btn-danger" id="booking_button">Confirm Booking</button>
+
+            </div>
+            <div class="form-group">
+                <input id="name_patient" type="text" class="form-control mb-3" placeholder="Enter Patient's Name" required>
+                <input id="age_patient" type="text" class="form-control mb-3" placeholder="Enter Patient's Age" required>
+            </div>
+            
+            <div class="calendar">
+                <div class="month">
+                    <button onclick="changemonth(-1)">&#10094</button>
+                    <div class="month-year" id="month-year"></div>
+                    <button onclick="changemonth(1)">&#10095</button>
+                </div>
+                <div class="weekdays">
+                    <div>sun</div>
+                    <div>mon</div>
+                    <div>tue</div>
+                    <div>Wen</div>
+                    <div>thu</div>
+                    <div>Fri</div>
+                    <div>sat</div>
+                </div>
+                <div class="days" id="days"></div>
+
+
+
+            </div>
+
+
+
+
+            <div class="time-controls mt-3 text-center">
+                <h5>Select Time</h5>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-light me-2" onclick="changeTime(-1)">&#8595; Hour</button>
+                    <span id="timeDisplay" class="mx-2 align-self-center">12</span> <!-- Example default hour -->
+                    <button type="button" class="btn btn-light ms-2" onclick="changeTime(1)">&#8593; Hour</button>
+                </div>
+                <div class="d-flex justify-content-center align-items-center mt-2">
+                    <button type="button" class="btn btn-light me-2" onclick="changeMin(-1)">&#8595; Min</button>
+                    <span id="minDisplay" class="mx-2 align-self-center">00</span> <!-- Example default minute -->
+                    <button type="button" class="btn btn-light ms-2" onclick="changeMin(1)">&#8593; Min</button>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-danger" id="booking_button">Confirm Booking</button>
+            </div>
+
+
+
+
+        </form>
+
+
+
+    </div>
+
 
 
 

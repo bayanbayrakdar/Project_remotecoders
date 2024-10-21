@@ -43,7 +43,7 @@ function removeRow(button) {
 
 document.addEventListener("DOMContentLoaded", function() {
     function addRow(event) {
-        event.preventDefault();
+        // event.preventDefault();
     
         const table = document.getElementById('outputTable').getElementsByTagName('tbody')[0];
     
@@ -69,6 +69,49 @@ document.addEventListener("DOMContentLoaded", function() {
             <button class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit</button>
             <button class="delete" onclick="removeRow(this)">Delete</button>
         `;
+
+
+        // const newAppointment={
+        //     "name_patient":  name_patient.value,
+        //     "age_patient": age_patient.value,
+        //     "Date": {
+        //       "day": newdata.day,
+        //       "month": newdata.month,
+        //       "year": newdata.year
+        //     },
+        //     "Time": {
+        //       "Hour": newtime.Hour,
+        //       "Minute": newtime.Minute
+        //     }
+
+        // }
+
+
+
+
+        // fetch('/veiw_booking', {  // Adjust the endpoint as needed
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(newAppointment),
+        // })
+        // .then(response => {
+        //     if (!response.ok) {
+        //         throw new Error('Network response was not ok');
+        //     }
+        //     return response.json();
+        // })
+        // .then(data => {
+        //     alert(data.message); // Show success or error message
+
+        // })
+        // .catch(error => {
+        //     console.error('Error:', error);
+        // });
+    
+
+
     }
 
     const newbooking_button = document.getElementById('newbooking_button'); // Make sure to select the correct button

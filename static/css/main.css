@@ -1,18 +1,93 @@
-.row {
-    background-color: #003366 !important; 
-    border: 20px;
-    margin-bottom: 50px;
+/* General Body Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    margin: 0;
 }
-.card-body{
-    background-color: #5883ae !important; 
 
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #343a40;
+    padding: 15px 30px;
+}
+
+.logo {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-buttons a {
+    margin-left: 15px;
+}
+
+.navbar button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.navbar button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Hero Section Styles */
+.hero-section {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    margin: 20px auto;
+}
+
+.hero-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.hero-image {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px;
+}
+
+/* Button Styles */
+.btn {
+    margin: 10px;
+}
+
+/* Card Styles */
+.card {
+    margin: 20px 0;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
 }
 
 /* Footer Styles */
 footer {
+    background-color: #343a40;
+    color: white;
     text-align: center;
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
+    padding: 15px;
+    margin-top: 30px;
 }

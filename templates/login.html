@@ -42,27 +42,44 @@
             </div>
             <button type="submit" id="button_login" class="btn">Login</button>
             <br>
-
         </form>
         <br>
         <div class="remember-forget">
             <label><input type="checkbox"> Remember me</label>
             <a href="#">Forgot Password</a>
         </div>
-    
+
         <div class="Register">
             <p>Don't have an account? <a href="{{ url_for('signup') }}">Register</a></p><br>
         </div>
-    
     </div>
 
+    <script>
+        const username_login = document.getElementById("username_login");
+        const password_login = document.getElementById("password_login");
+        const loginForm = document.getElementById("loginForm");
 
+        function login(event) {
+            event.preventDefault(); // Prevent default form submission
 
+            const username = username_login.value;
+            const password = password_login.value;
 
-    </div>
+            // Store values in localStorage
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
 
+            // Optionally, you can log the values to check if they're stored correctly
+            console.log("Stored username:", localStorage.getItem("username"));
+            console.log("Stored password:", localStorage.getItem("password"));
 
+            // Proceed to submit the form if you want to send the data to the server
+            loginForm.submit(); // Uncomment this line if you want to submit the form to your Flask server
+        }
 
+        // Attach the event listener to the form
+        loginForm.addEventListener("submit", login);
+    </script>
 </body>
 
 </html>

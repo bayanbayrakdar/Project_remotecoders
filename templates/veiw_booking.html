@@ -79,33 +79,39 @@
     </div>
 
 
-
     <div class="model" id="modal">
         <div class="model-header">
             <span class="title">New Booking</span>
             <button class="close-button" onclick="hideModal()">&times;</button>
         </div>
-        <div class="model-body">
+        <form action="/veiw_booking" id=booking method="POST">
 
-            <form id=booking method="POST">
+            <div class="model-body">
+
+
                 <input name="patientname" id=name_patient type="text" placeholder="Please Enter name patient" required>
                 <br><br>
                 <input name="patientage" id=age_patient type="text" placeholder="Please Enter age patient" required>
-
+    
                 <br><br>
                 <input name=date id="cal" type="datetime-local" onclick="showCal()">
-
+    
                 <div class="text-center">
-                    <button method="get" type="submit" class="btn btn-danger" id="newbooking_button">Confirm Booking</button>
-
+                    <button method="get" type="submit" class="btn btn-danger" id="newbooking_button">Confirm
+                        Booking</button>
+    
                 </div>
+    
+    
+
+            </div>
+        </form>
+        
+
+            
 
 
-
-            </form>
-
-
-        </div>
+        
     </div>
 
     <div id="overlay" class="overlay"></div>

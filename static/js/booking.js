@@ -9,7 +9,53 @@ const successMessage = document.getElementById("successMessage")
 const monthyear = document.getElementById('month-year');
 const days = document.getElementById('days');
 
-console.log("month"+currentmonth)
+
+// document.getElementById('booking').addEventListener('submit', function (e) {
+//     e.preventDefault();
+    
+//     const hour = document.getElementById('hour').value;
+//     const minute = document.getElementById('minute').value;
+//     // Now you can use these values for your booking logic
+// });
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the username from local storage
+    const username = localStorage.getItem('username');
+
+    // Check if username exists and display it
+    if (username) {
+        document.getElementById('welcomeMessage').innerText = `Welcome back, ${username}!`;
+    } else {
+        document.getElementById('welcomeMessage').innerText = 'Welcome to the Booking Page!';
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the username from local storage
+    const username = localStorage.getItem('username');
+
+    // Send the username to the server if it exists
+    if (username) {
+        fetch('/booking', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: username })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            // Optionally, handle the server response
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+});
+
 
 function rendercal() {
     
@@ -149,7 +195,8 @@ const checkInput = (event) => {
 //submit booking
 booking_form.addEventListener("submit", checkInput)
 
-//Edit booking 
+
+
 
 
 

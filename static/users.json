@@ -43,5 +43,59 @@
     "username": "jojo",
     "email": "jojo@gmail.com",
     "password": "jojo"
+  },
+  {
+    "idPatient": 5,
+    "username": "bobo",
+    "email": "bobo@gmmail.com",
+    "password": "123"
+  },
+  {
+    "idPatient": 6,
+    "username": "moh",
+    "email": "moh@gmail.com",
+    "password": "123"
+  },
+  {
+    "idPatient": 7,
+    "username": "kamel",
+    "email": "kamel@gmail.com",
+    "password": "123"
+  },
+  {
+    "idPatient": 8,
+    "username": "fke",
+    "email": "kldwm@ds.com",
+    "password": "1"
+  },
+  {
+    "idPatient": 9,
+    "username": "mmsl,ks",
+    "email": "kldwm@ds.com",
+    "password": "123"
+  },
+  {
+    "idPatient": 10,
+    "username": "jknjjk",
+    "email": "kjkn@h.com",
+    "password": "1"
+  },
+  {
+    "idPatient": 11,
+    "username": "p",
+    "email": "5@j.com",
+    "password": "1"
+  },
+  {
+    "idPatient": 12,
+    "username": "phhbhj",
+    "email": "5@j.com",
+    "password": "1"
+  },
+  {
+    "idPatient": 13,
+    "username": "pjh",
+    "email": "5@kmk.com",
+    "password": "55"
   }
 ]

@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             console.log(data.message);  // Handle the success message
             // Redirect to the home page on successful registration
-            window.location.href = '/';  // Change this to your home URL
+            window.location.href = '/home';  // Change this to your home URL
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);

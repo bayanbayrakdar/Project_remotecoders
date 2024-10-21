@@ -1,83 +1,153 @@
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-size:cover;
-    flex-direction:column;
-    background-image: url("../img/bookingimage.jpg");
+    background-size: cover;
+    flex-direction: column;
+    background-image: url("../img/doc1.jpg");
+    color: #333;
+    overflow: hidden; /* Prevent scrolling */
+}
+.container {
+    width: 90%; /* Use a percentage for container width */
+    max-width: 1200px; /* Set a max width for larger screens */
+    margin: 0 auto; 
+}
+.time-controls {
+    margin-top: 20px; /* Space above the time controls */
+}
 
+.time-controls h5 {
+    margin-bottom: 10px; /* Space below the heading */
+}
+
+.align-self-center {
+    font-weight: bold; /* Make the displayed time bold */
+    font-size: 1.5em; /* Adjust the size of the displayed time */
 }
 
 .calendar {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Full width for better fit */
+    max-width: 400px; /* Limit max width */
+    height: auto; /* Allow height to adjust based on content */
+    overflow-y: auto; /* Scroll if content is too tall */
+    
+
+    
 }
 
 .month {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 15px; /* Reduced margin */
 }
 
 .weekdays, .days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
-    margin-top: 10px;
+    margin-top: 5px; /* Reduced margin */
 }
 
-.time{
+.time {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* Reduced columns for time slots */
     text-align: center;
     margin-top: 10px;
 }
 
 .weekdays div {
     font-weight: bold;
+    color: #fff;
+    background-color: #4a7c92;
+    padding: 8px; /* Adjusted padding */
+    border-radius: 5px;
 }
 
 .days div {
-    padding: 15px;
-    border: 1px solid gray;
+    padding: 10px; /* Adjusted padding */
+    border: 1px solid #ccc;
     margin: 2px;
     cursor: pointer;
-    background-color:rgb(58, 109, 111);
-
+    background-color: #5a9a9b;
+    transition: background-color 0.3s ease;
+    text-align: center;
 }
 
 .days div:hover {
-    background-color: #e0e0e0;
+    background-color: #78c7c8;
 }
-.time div{
-    padding:30px;
-    border: 1px solid gray;
+
+.time div {
+    padding: 10px; /* Adjusted padding */
+    border: 1px solid #ccc;
     margin: 2px;
     cursor: pointer;
-    background-color:rgb(58, 109, 111);
-
-    
-
-    
-    
-}
-.time div:hover{
-    background-color: #e0e0e0;
+    background-color: #5a9a9b;
+    transition: background-color 0.3s ease;
 }
 
-.times{
+.time div:hover {
+    background-color: #78c7c8;
+}
 
+.times {
     margin-top: 10px;
-    padding: 20px;
+    padding: 10px; /* Adjusted padding */
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-   
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
+.time-controls {
+    display: flex;
+    flex-direction: column; /* Stack vertically */
+    align-items: center; /* Center align items */
+    margin: 20px 0; /* Space around */
+}
 
+.hour-controls, .min-controls {
+    display: flex;
+    justify-content: center; /* Center buttons in each group */
+    align-items: center; /* Center align items */
+    margin-bottom: 10px; /* Space between controls */
+}
+
+.time-display {
+    font-weight: bold; /* Make the displayed time bold */
+    font-size: 1.5em; /* Adjust the size of the displayed time */
+    margin: 0 10px; /* Space around the display */
+}
+
+.control-button {
+    margin: 0 5px; /* Space between buttons */
+    padding: 10px 15px; /* Padding for buttons */
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* White text */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.control-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+@media (max-width: 768px) {
+    .col {
+        flex: 1 1 100%; /* Stack columns on small screens */
+    }
+
+    button {
+        width: 100%; /* Full width for buttons on small screens */
+    }
+}
 
