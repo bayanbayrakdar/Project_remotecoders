@@ -118,8 +118,8 @@ def signup():
     password = data.get('password')
     confirm = data.get('confirm')
     
-    if os.path.exists('users.json'):
-        with open('users.json', 'r') as f:
+    if os.path.exists('static/users.json'):
+        with open('static/users.json', 'r') as f:
             users = json.load(f)
     else:
         users = []
@@ -153,7 +153,7 @@ def signup():
         users.append(user_data)
         UserClass=Users(idPatient,username,email,password)
 
-        with open('users.json', 'w') as f:
+        with open('static/users.json', 'w') as f:
             json.dump(users, f, indent=2)
 
         return jsonify(message='User registered successfully!'), 201
@@ -215,8 +215,8 @@ def appointment():
         print(UserClass.getid())
 
         # Load existing appointments or create a new list
-        if os.path.exists('appointment.json'):
-            with open('appointment.json', 'r') as f:
+        if os.path.exists('static/appointment.json'):
+            with open('static/appointment.json', 'r') as f:
                 try:
                     appointments = json.load(f)
                 except json.JSONDecodeError:
@@ -228,7 +228,7 @@ def appointment():
         appointments.append(new_appointment)
 
         # Write the updated list back to the file
-        with open('appointment.json', 'w') as f:
+        with open('static/appointment.json', 'w') as f:
             json.dump(appointments, f, indent=2)
     
     
