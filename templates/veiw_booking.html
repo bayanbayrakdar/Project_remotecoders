@@ -7,22 +7,21 @@
     <title>Document</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/stylemybooking.css">
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/stylebooking.css">
+
 </head>
 
 <body>
 
-    <h1 id="text">this is dashborde patient</h1>
+    <h1 id="text">dashborde patient</h1>
     <a href="{{url_for('booking')}}"><button class="btn btn-primary"></button></a>
 
-    <div class="content">
+    <!-- <div class="content">
 
         <form action="/veiw booking" method="DELETE">
             <button type="button" id="delete_button">Delete Reservation</button>
         </form>
 
-    </div>
+    </div> -->
 
 
 
@@ -74,7 +73,7 @@
     </table>
 
 
-    <div id="button">
+    <div class="button-container" id="button" >
         <button class="btn btn-success" onclick="showModal()">Add new</button>
     </div>
 

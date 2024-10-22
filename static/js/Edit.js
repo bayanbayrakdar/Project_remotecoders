@@ -42,7 +42,7 @@ function removeRow(button) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    function addRow(event) {
+    function addRow() {
         // event.preventDefault();
     
         const table = document.getElementById('outputTable').getElementsByTagName('tbody')[0];
@@ -114,9 +114,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }
 
-    const newbooking_button = document.getElementById('newbooking_button'); // Make sure to select the correct button
+    const newbooking_button = document.getElementById('newbooking_button'); 
     if (newbooking_button) {
-        newbooking_button.addEventListener('click', addRow); // Use 'click' instead of 'submit'
+        newbooking_button.addEventListener('click', addRow); 
     }
 });
 

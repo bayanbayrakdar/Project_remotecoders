@@ -8,18 +8,28 @@ body {
 
 /* Navbar Styles */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #343a40;
-    padding: 15px 30px;
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between logo and greeting */
+    align-items: center; /* Center items vertically */
+    padding: 15px 30px; /* Padding for the navbar */
+    background-color: #192a3c; /* Primary color for the navbar */
+    color: white; /* Text color */
 }
 
 .logo {
-    color: #ffffff;
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 24px; /* Size for the logo */
+    font-weight: bold; /* Bold text for emphasis */
 }
+
+.user-greeting {
+    font-size: 16px; /* Font size for the greeting */
+    text-align: right; /* Right-align the greeting */
+}
+
+h2 {
+    margin: 0; /* Remove default margin */
+}
+
 
 .navbar-buttons a {
     margin-left: 15px;

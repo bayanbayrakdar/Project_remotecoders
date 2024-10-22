@@ -1,276 +1,59 @@
 [
   {
-    "IdPatient": 4,
-    "appointment": {
-      "name_patient": "jojo1",
-      "age_patient": 1,
-      "Date": {
-        "day": "15",
-        "month": "October",
-        "year": "2024"
-      },
-      "Time": {
-        "Hour": "16",
-        "Minute": "59"
-      }
-    },
-    "appointments": [
-      {
-        "name_patient": "jojo2",
-        "age_patient": 2,
-        "Date": {
-          "day": 18,
-          "month": 10,
-          "year": 2024
-        },
-        "Time": {
-          "Hour": 20,
-          "Minute": 25
-        },
-        "IdPatient": 4
-      },
-      {
-        "name_patient": "llll",
-        "age_patient": 55,
-        "Date": {
-          "day": 17,
-          "month": 10,
-          "year": 2024
-        },
-        "Time": {
-          "Hour": 20,
-          "Minute": 56
-        }
-      }
-    ]
-  },
-  {
-    "IdPatient": 4,
-    "appointment": {
-      "name_patient": "jojo1",
-      "age_patient": 1,
-      "Date": {
-        "day": "15",
-        "month": "October",
-        "year": "2024"
-      },
-      "Time": {
-        "Hour": "16",
-        "Minute": "25"
-      }
-    }
-  },
-  {
-    "IdPatient": 4,
-    "appointment": {
-      "name_patient": "jojo1",
-      "age_patient": 1,
-      "Date": {
-        "day": "15",
-        "month": "October",
-        "year": "2024"
-      },
-      "Time": {
-        "Hour": "16",
-        "Minute": "25"
-      }
-    }
-  },
-  {
-    "IdPatient": 5,
-    "appointment": {
-      "name_patient": "bobo1",
-      "age_patient": 22,
-      "Date": {
-        "day": "9",
-        "month": "October",
-        "year": "2024"
-      },
-      "Time": {
-        "Hour": "16",
-        "Minute": "25"
-      }
-    },
-    "appointments": [
-      {
-        "IdPatient": 5,
-        "appointment": {
-          "name_patient": "bobo1",
-          "age_patient": 22,
-          "Date": {
-            "day": "9",
-            "month": "October",
-            "year": "2024"
-          },
-          "Time": {
-            "Hour": "16",
-            "Minute": "36"
-          }
-        }
-      },
-      {
-        "IdPatient": 5,
-        "appointment": {
-          "name_patient": "bobo1",
-          "age_patient": 22,
-          "Date": {
-            "day": "9",
-            "month": "October",
-            "year": "2024"
-          },
-          "Time": {
-            "Hour": "16",
-            "Minute": "36"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "IdPatient": 5,
-    "appointment": {
-      "name_patient": "bobo1",
-      "age_patient": 22,
-      "Date": {
-        "day": "9",
-        "month": "October",
-        "year": "2024"
-      },
-      "Time": {
-        "Hour": "16",
-        "Minute": "36"
-      }
-    }
-  },
-  {
-    "IdPatient": 5,
-    "appointment": {
-      "name_patient": "bobo1",
-      "age_patient": 22,
-      "Date": {
-        "day": "9",
-        "month": "October",
-        "year": "2024"
-      },
-      "Time": {
-        "Hour": "16",
-        "Minute": "36"
-      }
-    }
-  },
-  {
     "IdPatient": 0,
     "appointments": [
       {
-        "name_patient": "lll",
+        "name_patient": "b1",
+        "age_patient": 1,
+        "Date": {
+          "day": "9",
+          "month": "October",
+          "year": "2024"
+        },
+        "Time": {
+          "Hour": "21",
+          "Minute": "50"
+        }
+      },
+      {
+        "name_patient": "b2",
         "age_patient": 2,
         "Date": {
-          "day": 18,
+          "day": 3,
           "month": 10,
           "year": 2024
         },
         "Time": {
-          "Hour": 20,
+          "Hour": 9,
+          "Minute": 37
+        }
+      },
+      {
+        "name_patient": "b3",
+        "age_patient": 3,
+        "Date": {
+          "day": 2,
+          "month": 10,
+          "year": 2024
+        },
+        "Time": {
+          "Hour": 9,
           "Minute": 38
+        }
+      },
+      {
+        "name_patient": "b4",
+        "age_patient": 4,
+        "Date": {
+          "day": 11,
+          "month": 10,
+          "year": 2024
         },
-        "IdPatient": 0
+        "Time": {
+          "Hour": 9,
+          "Minute": 39
+        }
       }
     ]
-  },
-  {
-    "IdPatient": 4,
-    "appointment": {
-      "name_patient": "kkk",
-      "age_patient": 5,
-      "Date": {
-        "day": "9",
-        "month": "October",
-        "year": "2024"
-      },
-      "Time": {
-        "Hour": "16",
-        "Minute": "36"
-      }
-    }
-  },
-  {
-    "IdPatient": 0,
-    "appointment": {
-      "name_patient": "llll",
-      "age_patient": 55,
-      "Date": {
-        "day": "11",
-        "month": "October",
-        "year": "2024"
-      },
-      "Time": {
-        "Hour": "21",
-        "Minute": "12"
-      }
-    }
-  },
-  {
-    "IdPatient": 0,
-    "appointment": {
-      "name_patient": "llll",
-      "age_patient": 55,
-      "Date": {
-        "day": "11",
-        "month": "October",
-        "year": "2024"
-      },
-      "Time": {
-        "Hour": "21",
-        "Minute": "12"
-      }
-    }
-  },
-  {
-    "IdPatient": 0,
-    "appointment": {
-      "name_patient": "d",
-      "age_patient": 5,
-      "Date": {
-        "day": "11",
-        "month": "October",
-        "year": "2024"
-      },
-      "Time": {
-        "Hour": "21",
-        "Minute": "50"
-      }
-    }
-  },
-  {
-    "IdPatient": 0,
-    "appointment": {
-      "name_patient": "ll",
-      "age_patient": 2,
-      "Date": {
-        "day": "10",
-        "month": "October",
-        "year": "2024"
-      },
-      "Time": {
-        "Hour": "21",
-        "Minute": "50"
-      }
-    }
-  },
-  {
-    "IdPatient": 0,
-    "appointment": {
-      "name_patient": "d",
-      "age_patient": 2,
-      "Date": {
-        "day": "11",
-        "month": "October",
-        "year": "2024"
-      },
-      "Time": {
-        "Hour": "21",
-        "Minute": "50"
-      }
-    }
   }
 ]

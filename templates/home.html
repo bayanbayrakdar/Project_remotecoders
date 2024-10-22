@@ -9,8 +9,18 @@
 </head>
 <body>
     <header>
-        <nav class="navbar">
-            <h1 class="logo">Healthcare Portal</h1>
+
+            <nav class="navbar">
+                <h1 class="logo">Healthcare Portal</h1>
+                <div class="user-greeting">
+                    {% if username %}
+                        <h2>Welcome, {{ username }} (ID: {{ IdPatient }})</h2>
+                    {% else %}
+                        <h2>Welcome, Guest</h2>
+                    {% endif %}
+                </div>
+            </nav>
+            
             <div class="navbar-buttons">
                 <a href="{{ url_for('about') }}"><button class="btn">About Us</button></a>
                 <a href="{{ url_for('signup') }}"><button class="btn">Sign Up</button></a>
@@ -29,31 +39,34 @@
     </div>
 
     <div class="container text-center mt-5">
-        <a href="#doctors" class="btn btn-primary mb-3">Meet Our Doctors</a>
-        <a href="#contact" class="btn btn-secondary mb-3">Contact Us</a>
-    </div>
-
-    <div id="doctors" class="container mt-5">
-        <h2>Meet Our Doctors</h2>
-        <div class="row">
-            {% for doctor in doctors %}
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top" src="{{ doctor.image }}" alt="{{ doctor.name }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ doctor.name }}</h5>
-                        <p class="card-text">Specialization: {{ doctor.specialization }}</p>
-                        <p class="card-text">Qualification: {{ doctor.qualification }}</p>
-                        <p class="card-text">Experience: {{ doctor.experience }} years</p>
-                        <div class="text-center">
-                            <a href="{{ url_for('booking', doctor_id=doctor.id) }}" class="btn btn-danger">Book Now</a>
+        <a class="btn btn-primary mb-3">Meet Our Doctors</a>
+        <a class="btn btn-secondary mb-3">Contact Us</a>
+        <div id="doctors" class="container mt-5">
+            <h2>Meet Our Doctors</h2>
+            <div class="row">
+                {% if doctors %}
+                    {% for doctor in doctors %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img class="card-img-top" src="{{ doctor.image }}" alt="{{ doctor.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ doctor.name }}</h5>
+                                <p class="card-text">Specialization: {{ doctor.specialization }}</p>
+                                <p class="card-text">Qualification: {{ doctor.qualification }}</p>
+                                <p class="card-text">Experience: {{ doctor.experience }} years</p>
+                                <div class="text-center">
+                                    <a href="{{ url_for('booking', doctor_id=doctor.id) }}" class="btn btn-danger">Book Now</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No doctors available at this time.</p>
+                {% endif %}
             </div>
-            {% endfor %}
         </div>
-    </div>
+        
 
     <section id="contact" class="container mt-5">
         <h2>Contact Us</h2>

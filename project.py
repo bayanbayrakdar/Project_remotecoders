@@ -1,5 +1,5 @@
 
-from flask import Flask, request,flash,url_for, jsonify, redirect,render_template
+from flask import Flask, request,flash,url_for, jsonify, redirect,render_template,session
 import flask
 import json
 import os
@@ -63,11 +63,18 @@ def getjson(file):
 
 
 
-@app.route("/")
+
+@app.route('/')
 def home1():
-    doctors=getdoctors()
+    # Assume you have a function to get the list of doctors
+    doctors = getdoctors()  # This should return a list of doctors
+    username = session.get('username')  # Get the username from session
+    IdPatient = session.get('IdPatient')  # Get the patient ID from session
+
+    return render_template('home.html', doctors=doctors, username=username, IdPatient=IdPatient)
+
     
-    return render_template("home.html",doctors=doctors)
+   
 
 def authenticate(username, password):
     # Dummy authentication logic (replace with your own)
@@ -83,36 +90,28 @@ def login():
 def home():
     global IdPatient
     if request.method == 'POST':
-        
         username = request.form.get("username_login")
         password = request.form.get("password_login")
 
         users = getjson("users")  # Assuming this function returns a list of user dictionaries
 
-        # Check if username and password are provided
         if not username or not password:
             flash('Both username and password are required.', 'error')
             return render_template("login.html") 
-            
-
-
 
         for user in users:
-
-                
-
             if user['username'] == username and user['password'] == password:
-                
-                IdPatient=user['idPatient']
-                # print(IdPatient)
-                print("hsjj")
+                IdPatient = user['idPatient']
                 flash('Login successful!', 'success')
-                return render_template("home.html" ,username=username ,IdPatient=IdPatient)  # Redirect on successful login
 
+                # Fetch doctors
+                doctors = getdoctors()  # Fetch the list of doctors here
 
- 
+                return render_template("home.html", username=username, IdPatient=IdPatient, doctors=doctors)  # Pass doctors to template
+
     flash('Invalid username or password. Please try again.', 'error')
     return render_template('login.html')
+
 
 
 @app.route("/signup")
@@ -249,27 +248,27 @@ def appointment():
         new_appointmentuser ={
             
             "IdPatient":IdPatient,
-            "appointment" :new_appointment,
+           
         }
-        # Load existing appointments or create a new list
-        if os.path.exists('static/appointment.json'):
-            with open('static/appointment.json', 'r') as f:
-                try:
-                    appointments = json.load(f)
-                except json.JSONDecodeError:
-                    appointments = []  # Handle JSON decoding errors
-        else:
-            appointments = []
 
-        # Append the new appointment to the list
+        with open('static/appointment.json', 'r') as f:
+            try:
+                appointments = json.load(f)
+            except json.JSONDecodeError:
+                appointments = []  # Handle JSON decoding errors
+
         appointments.append(new_appointmentuser)
-
+        for patient in appointments :
+            if patient["IdPatient"] == IdPatient:
+                if "appointments" not in patient:
+                    patient["appointments"] = []  
+                
+            patient["appointments"].append(new_appointment)
+               
         # Write the updated list back to the file
         with open('static/appointment.json', 'w') as f:
             json.dump(appointments, f, indent=2)
-    
 
-    
     return jsonify(message='Appointment successfully created'),200
 
 
@@ -279,18 +278,15 @@ def veiw_booking():
     global patient
     global IdPatient
 
+    #post information when i add new appointment 
+
     if request.method == 'POST':
         NewName = request.form.get("patientname")
         NewAge = request.form.get("patientage")
-        datePatient = request.form.get("date")
-
-        try:
-            datePatient = datetime.strptime(datePatient, '%Y-%m-%dT%H:%M')
-            NewDate = datePatient.date()
-            NewTime = datePatient.time()
-        except (ValueError, TypeError):
-            flash('Invalid date format. Please use the correct format.', 'error')
-            return render_template("booking.html")
+        datePatient = request.form.get("date")        
+        datePatient = datetime.strptime(datePatient, '%Y-%m-%dT%H:%M')
+        NewDate = datePatient.date()
+        NewTime = datePatient.time()
 
         new_appointment_view = {
             "name_patient": NewName,
@@ -306,34 +302,26 @@ def veiw_booking():
             }
         }
 
-        print("New appointment view:", new_appointment_view)
 
-        appointments = getjson("appointment")
-
-        # Find the specific patient by IdPatient
-        patient_found = False
-        for appointment in appointments:
-            if appointment["IdPatient"] == IdPatient:
-                patient_found = True
-                # Check if appointments list exists, if not create one
-                if "appointments" not in appointment:
-                    appointment["appointments"] = []
-                # Append the new appointment to the patient's appointments list
-                appointment["appointments"].append(new_appointment_view)
-                print("New appointment added under IdPatient:", IdPatient)
-                break
-
-        if not patient_found:
-            # If no existing patient, create a new entry
-            appointments.append({
-                "IdPatient": IdPatient,
-                "appointments": [new_appointment_view]
-            })
-            print("New patient added with IdPatient:", IdPatient)
-
-        # Save updated appointments back to the JSON file
+        with open('static/appointment.json', 'r') as f:
+            try:
+                appointments = json.load(f)
+            except json.JSONDecodeError:
+                appointments = []  # Handle JSON decoding errors
+        
+        for patient in appointments :
+            if patient["IdPatient"] == IdPatient:
+                if "appointments" not in patient:
+                    patient["appointments"] = []  
+                
+            patient["appointments"].append(new_appointment_view)
+               
+        # Write the updated list back to the file
         with open('static/appointment.json', 'w') as f:
-            json.dump(appointments, f)
+            json.dump(appointments, f, indent=2)
+
+
+  
 
         # Create new patient object
         newpatient = Patient(NewName, NewAge, NewDate, NewTime)
@@ -346,11 +334,29 @@ def veiw_booking():
                                id=IdPatient)
 
     # Handle GET request and render existing patient information
+    appointmentFile=getjson("appointment")
+    print(appointmentFile)
+    for appointment in appointmentFile:
+        if appointment['IdPatient'] == IdPatient:
+            patient_found = True
+            
+            # Iterate over each appointment for the matched patient
+            for app in appointment['appointments']:
+                namePatient = app['name_patient']
+                agePatient = app['age_patient']
+                day = app['Date']['day']
+                month = app['Date']['month']
+                year = app['Date']['year']
+                hour = app['Time']['Hour']
+                minute = app['Time']['Minute']
+
+
+
     return render_template("veiw_booking.html", 
-                           name_patient=patient.name if patient else " ", 
-                           age_patient=patient.age if patient else " ", 
-                           Date=f"{patient.date['day']}/{patient.date['month']}/{patient.date['year']}" if patient else " ", 
-                           Time=f"{patient.time['Hour']}:{patient.time['Minute']}" if patient else " ", 
+                           name_patient=namePatient if namePatient else " ", 
+                           age_patient=agePatient if agePatient else " ", 
+                           Date=f"{day}/{month}/{year}" if day and month and year else " ", 
+                           Time=f"{hour}:{minute}" if hour and minute else " ", 
                            id=IdPatient)
 
 
