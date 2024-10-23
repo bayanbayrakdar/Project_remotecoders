@@ -14,7 +14,7 @@
 <body>
 
     <h1 id="text">dashborde patient</h1>
-    <a href="{{url_for('booking')}}"><button class="btn btn-primary"></button></a>
+    <a href="{{url_for('booking')}}"><button class="btn btn-primary">Back</button></a>
 
     <form method="get">
         <table id="outputTable" class="table table-bordered table-striped">
@@ -32,13 +32,11 @@
             </thead>
             <tbody>
                 {% for appointment in appointments %}
-                <tr id="{{ appointment.NumberAppointment }}">
-                    <!-- <td>{{ IdPatient }}</td> -->
+                <tr data-id="{{ appointment.NumberAppointment }}">
                     <td id="appointment-{{ appointment.NumberAppointment }}">{{ appointment.NumberAppointment }}</td>
-                    <!-- <td>{{ appointment.name_patient }}</td>
-                    <td>{{ appointment.age_patient }}</td> -->
-                    <td>{{ appointment.Date.day }} {{ appointment.Date.month }}, {{ appointment.Date.year }}</td>
-                    <td>{{ appointment.Time.Hour }}:{{ appointment.Time.Minute }}</td>
+                    <td class="date-column">{{ appointment.Date.day }} {{ appointment.Date.month }}, {{
+                        appointment.Date.year }}</td>
+                    <td class="time-column">{{ appointment.Time.Hour }}:{{ appointment.Time.Minute }}</td>
                     <td style="text-align:center;">
                         <button class="save">Save</button>
                         <button class="edit btn btn-success" id="buttonEDit"
@@ -52,6 +50,7 @@
                 </tr>
                 {% endfor %}
             </tbody>
+
         </table>
     </form>
 
@@ -91,79 +90,30 @@
         <div class="model-header">
             <span class="title">Edit Booking</span>
             <button class="close-button" onclick="hideModaledit()">&times;</button>
+            <form id="booking">
+                <div class="model-body">
 
+                    <input name=date id="caledit" type="datetime-local" onclick="showCal()">
 
-            <div class="model-body">
-
-                <input name=date id="caledit" type="datetime-local" onclick="showCal()">
-
-                <div class="text-center">
-                    <button type="submit" class="btn btn-danger" id="confermEdit">Confirm Edite</button>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-danger" id="confermEdit">Confirm Edite</button>
+                    </div>
                 </div>
-            </div>
+
+            </form>
+
         </div>
 
     </div>
 
 
-    <!-- this is for backend -->
-    <!-- <div class="model" id="modaledit">
-        <div class="model-header">
-            <span class="title">Edit Booking</span>
-            <button class="close-button" onclick="hideModaledit()">&times;</button>
-        </div>
-        <form method="post" action="/submit"  id="booking">
-            <div class="model-body">
-
-                <input name=date id="caledit" type="datetime-local" onclick="showCal()">
-
-                <div class="text-center">
-                    <button type="submit" class="btn btn-danger" id="confermEdit">Confirm Edite</button>
-                </div>
-            </div>
-        </form>
-    </div> -->
 
 
     <div id="overlay" class="overlay"></div>
-    <script>
-
-        // Edit functionality
-
-        document.addEventListener('click', function (event) {
-            if (event.target.classList.contains('edit')) {
-                const row = event.target.closest('tr');
-                const dataCells = row.querySelectorAll('td.data');
-
-                dataCells.forEach(function (cell) {
-                    const content = cell.innerHTML;
-                    cell.innerHTML = '<input value="' + content + '" />';
-                });
-
-                event.target.style.display = 'none';
-                row.querySelector('.save').style.display = 'inline-block';
-                row.querySelector('.delete').style.display = 'none';
-            }
-        });
-
-
-
-
-
-
-
-    </script>
-
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
-
+ 
 
     <script src="/static/js/bootstrap.bundle.min.js"></script>
     <script src="static/js/Edit.js"></script>
-
-    <!-- <script src="/static/js/booking.js"></script> -->
-
-
-
 
 
 </body>

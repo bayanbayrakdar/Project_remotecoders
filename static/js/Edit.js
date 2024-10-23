@@ -139,36 +139,49 @@ function GetCal(event) {
 
 
 //this is for backend to edit 
-// document.addEventListener('click', (e) => {
-//     if (e.target.getAttribute('id') === 'buttonEDit') {
-//         const appointmentId = e.target.getAttribute("data-id");
-//         console.log(appointmentId);
-//         localStorage.setItem("appointmentId", appointmentId)
+document.addEventListener('click', (e) => {
+    // Check if the edit button was clicked
+    if (e.target.getAttribute('id') === 'buttonEDit') {
+        showModaledit(); // Show the modal
+        const appointmentId = e.target.getAttribute("data-id"); // Get appointment ID
+        console.log(appointmentId);
+        localStorage.setItem("appointmentId", appointmentId); // Store it in local storage
+    }
 
+    // Check if the confirm edit button was clicked
+    if (e.target.getAttribute('id') === 'confermEdit') {
+        const dateTimeInput = document.getElementById("caledit").value; // Get the date and time input
+        console.log(dateTimeInput);
 
-//         showModaledit(appointmentId); // Pass appointmentId to the modal if needed
-//     }
+        // Retrieve the appointment ID from local storage
+        const appointmentId = localStorage.getItem("appointmentId");
 
-    // if (e.target.getAttribute('id') === 'confermEdit') {
-    //     const dateTimeInput = document.getElementById("caledit").value;
-    //     const appointmentId = e.target.getAttribute("data-id");
+        // Split the date and time
+        const [dateStr, timeStr] = dateTimeInput.split('T');
+        
+        // Update the table with the new values
+        updateTable(appointmentId, dateStr, timeStr);
+        
 
-    //     const formData = new FormData();
-    //     formData.append('date', dateTimeInput);
-    //     formData.append('appointmentId', appointmentId);
-
-    //     fetch('/submit', {
-    //         method: 'POST',
-    //         body: formData,
-    //     })
-    //         .then(response => response.text())
-    //         .then(data => {
-    //             console.log(data);
-    //             alert(data);
-    //         })
-    //         .catch(error => console.error('Error:', error));
-    // }
+        // Optionally, close the modal after updating
+        hideModaledit();
+    }
 });
+
+// Function to update the table
+function updateTable(appointmentId, date, time) {
+    // Find the table row corresponding to the appointmentId
+    const row = document.querySelector(`tr[data-id="${appointmentId}"]`); // Use the appointmentId to find the row
+    if (row) {
+        // Update the date and time in the table
+        row.querySelector('.date-column').textContent = date; // Update date column
+        row.querySelector('.time-column').textContent = time; // Update time column
+    } else {
+        console.error('No row found for appointment ID:', appointmentId);
+    }
+}
+
+
 
 
 

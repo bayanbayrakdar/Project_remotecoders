@@ -1,15 +1,16 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* display: flex; */
+    display: flex; 
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     background-size: cover;
-    flex-direction: column;
+    
+    
     background-image: url("../img/doc1.jpg");
-    color: #333;
-    overflow: hidden; /* Prevent scrolling */
+    color: #f5f1f1;
+    overflow:scroll; /* Prevent scrolling */
 }
 .container {
     width: 90%; /* Use a percentage for container width */

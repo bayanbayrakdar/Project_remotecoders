@@ -1,107 +1,17 @@
 
-from flask import Flask, request,flash,url_for, jsonify, redirect,render_template,session
+from flask import Flask, request,flash, jsonify,render_template,session
 import flask
 import json
 import os
 from datetime import datetime
-import bcrypt
 
-
-
-#save booking info to json file
-import os
-import json
 
 app=flask.Flask(__name__)
 
 
-# def setup_appointment_routes(app):
-#     @app.route('/veiw_booking/<int:appointment_number>', methods=['DELETE'])
-#     def delete_appointment(appointment_number):
-#         try:
-#             with open('static/appointment.json', 'r') as f:
-#                 appointments = json.load(f)
-
-#             # Find and remove the appointment
-#             for patient in appointments:
-#                 patient['appointments'] = [
-#                     appt for appt in patient.get('appointments', [])
-#                     if appt['NumberAppointment'] != appointment_number
-#                 ]
-
-#             # Save updated appointments
-#             with open('static/appointment.json', 'w') as f:
-#                 json.dump(appointments, f, indent=2)
-
-#             return jsonify({'message': 'Appointment deleted successfully'}), 200
-#         except Exception as e:
-#             return jsonify({'error': str(e)}), 500
-
-#     @app.route('/veiw_booking/<int:appointment_number>', methods=['PUT'])
-#     def update_appointment(appointment_number):
-#         try:
-#             data = request.json
-#             with open('static/appointment.json', 'r') as f:
-#                 appointments = json.load(f)
-
-#             # Update the appointment
-#             appointment_found = False
-#             for patient in appointments:
-#                 for appointment in patient.get('appointments', []):
-#                     if appointment['NumberAppointment'] == appointment_number:
-#                         # Update appointment details
-#                         appointment['name_patient'] = data['patientName']
-#                         appointment['age_patient'] = int(data['patientAge'])
-                        
-#                         # Parse and update date
-#                         date_parts = data['date'].split()
-#                         appointment['Date'] = {
-#                             'day': int(date_parts[0]),
-#                             'month': date_parts[1].rstrip(','),
-#                             'year': int(date_parts[2])
-#                         }
-                        
-#                         # Parse and update time
-#                         time_parts = data['time'].split(':')
-#                         appointment['Time'] = {
-#                             'Hour': int(time_parts[0]),
-#                             'Minute': int(time_parts[1])
-#                         }
-                        
-#                         appointment_found = True
-#                         break
-#                 if appointment_found:
-#                     break
-
-#             if not appointment_found:
-#                 return jsonify({'error': 'Appointment not found'}), 404
-
-#             # Save updated appointments
-#             with open('static/appointment.json', 'w') as f:
-#                 json.dump(appointments, f, indent=2)
-
-#             return jsonify({'message': 'Appointment updated successfully'}), 200
-#         except Exception as e:
-#             return jsonify({'error': str(e)}), 500
-
-#     @app.template_filter('format_date')
-#     def format_date(date_dict):
-#         """Format date dictionary into a readable string"""
-#         try:
-#             return f"{date_dict['day']} {date_dict['month']}, {date_dict['year']}"
-#         except:
-#             return "Invalid date"
-
-#     @app.template_filter('format_time')
-#     def format_time(time_dict):
-#         """Format time dictionary into a readable string"""
-#         try:
-#             return f"{time_dict['Hour']:02d}:{time_dict['Minute']:02d}"
-#         except:
-#             return "Invalid time"
 
 
-app.secret_key = 'asdfghjkl'  # Set this to a random string
+app.secret_key = 'asdfghjkl' 
 IdPatient=0
 UserClass = None
 patient = None
@@ -344,11 +254,7 @@ def appointment():
 
         return jsonify(message='Appointment created successfully', appointment=new_appointment), 201
 
-
-# @app.route('/veiw_booking',methods=['DELETE'])
-# def delete():
-
-
+# this function to veiw_booking to post and get data from to javascritp to rout 
 @app.route('/veiw_booking', methods=['POST', 'GET'])
 def veiw_booking():
     global UserClass
@@ -459,110 +365,6 @@ def veiw_booking():
                 IdPatient=IdPatient
             )
  
-
-
-
-
-@app.route('/submit', methods=['POST'])
-def submit():
-    date_time = request.form['date']
-    appointment_id = request.form['appointmentId']  # Get the appointment ID
-
-    # Split the date and time
-    date_str, time_str = date_time.split('T')
-    
-    # Parse the date and time
-    NewDate = datetime.strptime(date_str, '%Y-%m-%d')
-    NewTime = datetime.strptime(time_str, '%H:%M')  # Adjust if seconds are included
-
-    print(f"Received date: {NewDate.date()}")  # Print the date part
-    print(f"Received time: {NewTime.time()}")  # Print the time part
-    print(f"Received appointment ID: {appointment_id}")  # Print the appointment ID
-
-    return f"Received date: {NewDate.date()}, time: {NewTime.time()}, Appointment ID: {appointment_id}"
-
-
-
-
-
-        #     with open('static/appointment.json', 'r') as f:
-        #     appointments = json.load(f)
-            
-        # number_appointment = max((num.get('NumberAppointment', 0) for patient in appointments for num in patient.get('appointments', [])), default=0) + 1
-        
-        # new_appointment_view = {
-        #     "NumberAppointment": number_appointment,
-        #     "name_patient": NewName,
-        #     "age_patient": NewAge,
-        #     "Date": {
-        #         "day": NewDate.day,
-        #         "month": NewDate.month,
-        #         "year": NewDate.year,
-        #     },
-        #     "Time": {
-        #         "Hour": NewTime.hour,
-        #         "Minute": NewTime.minute
-        #     }
-        # }
-        # print(new_appointment_view)
-
-
-
-
-
-# @app.route('/view_booking', methods=['GET', 'POST'])
-# def appentTable():
-#     global IdPatient
-#     all_appointment = []
-    
-
-#     # Load appointments from the JSON file
-#     with open("static/appointment.json", 'r') as f:
-#         appointment_table = json.load(f)
-
-#     # Loop through each patient record to find matching IdPatient
-#     for patient_record in appointment_table:
-#         if patient_record["IdPatient"] == int(IdPatient):
-#             all_appointment.extend(patient_record.get("appointments", []))
-
-#     # Prepare to return to template
-#     if all_appointment:
-#         # Use the last appointment (or however you want to display them)
-#         last_appointment = all_appointment[-1]  # Get the last appointment or process as needed
-#         numberAppointment = last_appointment['NumberAppointment']
-#         namePatient = last_appointment['name_patient']
-#         agePatient = last_appointment['age_patient']
-#         day = last_appointment['Date']['day']
-#         month = last_appointment['Date']['month']
-#         year = last_appointment['Date']['year']
-#         hour = last_appointment['Time']['Hour']
-#         minute = last_appointment['Time']['Minute']
-
-#         return render_template("veiw_booking.html",
-#                                id=IdPatient,
-#                                numberAppointment=numberAppointment,
-#                                name_patient=namePatient,
-#                                age_patient=agePatient,
-#                                Date=f"{day}/{month}/{year}",
-#                                Time=f"{hour}:{minute}")
-#     else:
-#         return render_template("veiw_booking.html", id=IdPatient, message="No appointments found.")
-
-
-
-
-# @app.route('/veiw_booking',methods=['GET', 'POST','DELETE','PUT'])
-# def Edit_booking():
-#     if methods==['DELETE']:
-
-
-
-
-#     with open("oppointment.json" , 'r') as file:
-
-#         data=json.load(file)
-#     print(data)
-
 
 
 
