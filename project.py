@@ -412,6 +412,7 @@ def veiw_booking():
 
         return jsonify({
             "message": "New appointment recorded successfully",
+            "IdPatient": IdPatient,
             "numberapp": number_appointment,
             "status": 200
         })
@@ -458,6 +459,53 @@ def veiw_booking():
                 IdPatient=IdPatient
             )
  
+
+
+
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    date_time = request.form['date']
+    appointment_id = request.form['appointmentId']  # Get the appointment ID
+
+    # Split the date and time
+    date_str, time_str = date_time.split('T')
+    
+    # Parse the date and time
+    NewDate = datetime.strptime(date_str, '%Y-%m-%d')
+    NewTime = datetime.strptime(time_str, '%H:%M')  # Adjust if seconds are included
+
+    print(f"Received date: {NewDate.date()}")  # Print the date part
+    print(f"Received time: {NewTime.time()}")  # Print the time part
+    print(f"Received appointment ID: {appointment_id}")  # Print the appointment ID
+
+    return f"Received date: {NewDate.date()}, time: {NewTime.time()}, Appointment ID: {appointment_id}"
+
+
+
+
+
+        #     with open('static/appointment.json', 'r') as f:
+        #     appointments = json.load(f)
+            
+        # number_appointment = max((num.get('NumberAppointment', 0) for patient in appointments for num in patient.get('appointments', [])), default=0) + 1
+        
+        # new_appointment_view = {
+        #     "NumberAppointment": number_appointment,
+        #     "name_patient": NewName,
+        #     "age_patient": NewAge,
+        #     "Date": {
+        #         "day": NewDate.day,
+        #         "month": NewDate.month,
+        #         "year": NewDate.year,
+        #     },
+        #     "Time": {
+        #         "Hour": NewTime.hour,
+        #         "Minute": NewTime.minute
+        #     }
+        # }
+        # print(new_appointment_view)
+
 
 
 
@@ -521,25 +569,7 @@ def veiw_booking():
 
 
 if __name__ == "__main__":
-    
-
-    # all_appointment=[]
-    
-    # with open("static/appointment.json", 'r') as f:           
-    #     appointment_table= json.load(f)  # Return loaded JSON data
-
-
-    # for patient_record in appointment_table:
-    #     if patient_record["IdPatient"] == IdPatient:              
-    #        all_appointment.append(patient_record["appointments"])
         
-    # print(all_appointment)
-        
-    # # Write the updated list back to the file
-    # with open('static/newappointment.json', 'w') as f:
-    #     json.dump(all_appointment, f, indent=2)
-    
-    
     app.run(debug=True)
 
 

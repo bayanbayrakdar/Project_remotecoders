@@ -90,6 +90,20 @@
                     "Hour": "21",
                     "Minute": "50"
                 }
+            },
+            {
+                "NumberAppointment": 7,
+                "name_patient": "d",
+                "age_patient": 8,
+                "Date": {
+                    "day": "5",
+                    "month": "October",
+                    "year": "2024"
+                },
+                "Time": {
+                    "Hour": "21",
+                    "Minute": "50"
+                }
             }
         ]
     }

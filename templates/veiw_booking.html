@@ -16,36 +16,6 @@
     <h1 id="text">dashborde patient</h1>
     <a href="{{url_for('booking')}}"><button class="btn btn-primary"></button></a>
 
-    <!-- <div class="content">
-
-        <form action="/veiw booking" method="DELETE">
-            <button type="button" id="delete_button">Delete Reservation</button>
-        </form>
-
-    </div> -->
-
-
-
-
-
-
-
-    <!-- <form action="/veiw_booking" method="DELETE">
-
-            <div class="text-center">
-                <button type="button" class="btn btn-outline-danger" id="delete_button">Delete Reservation</button>
-
-            </div> -->
-    <!-- </form>
-        <form action="/veiw_booking" method="PUT">
-            <div><button id="update">update booking</button></div>
-        </form>
-        <form action="/veiw_booking" method="POST">
-            <div><button id="add">add booking</button></div>
-        </form> -->
-
-
-
     <form method="get">
         <table id="outputTable" class="table table-bordered table-striped">
             <thead>
@@ -62,17 +32,17 @@
             </thead>
             <tbody>
                 {% for appointment in appointments %}
-                <tr>
-                    <td>{{ IdPatient }}</td>
+                <tr id="{{ appointment.NumberAppointment }}">
+                    <!-- <td>{{ IdPatient }}</td> -->
                     <td id="appointment-{{ appointment.NumberAppointment }}">{{ appointment.NumberAppointment }}</td>
-                    <td>{{ appointment.name_patient }}</td>
-                    <td>{{ appointment.age_patient }}</td>
+                    <!-- <td>{{ appointment.name_patient }}</td>
+                    <td>{{ appointment.age_patient }}</td> -->
                     <td>{{ appointment.Date.day }} {{ appointment.Date.month }}, {{ appointment.Date.year }}</td>
                     <td>{{ appointment.Time.Hour }}:{{ appointment.Time.Minute }}</td>
                     <td style="text-align:center;">
                         <button class="save">Save</button>
-                        <button type="button" class="edit btn btn-success" data-toggle="modal"
-                            data-target="#myModal">Edit</button>
+                        <button class="edit btn btn-success" id="buttonEDit"
+                            data-id="{{ appointment.NumberAppointment }}">Edit</button>
                         <button class="delete" onclick="removeRow(this)">Delete</button>
                     </td>
                 </tr>
@@ -97,11 +67,9 @@
             <span class="title">New Booking</span>
             <button class="close-button" onclick="hideModal()">&times;</button>
         </div>
-        <form id=booking method="POST">
+        <form id="booking" method="POST">
 
             <div class="model-body">
-
-
                 <input name="patientname" id=name_patient type="text" placeholder="Please Enter name patient" required>
                 <br><br>
                 <input name="patientage" id=age_patient type="text" placeholder="Please Enter age patient" required>
@@ -114,92 +82,79 @@
                         Booking</button>
 
                 </div>
-
-
-
             </div>
         </form>
+    </div>
 
 
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Edit Appointment</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editForm">
-                            <div class="mb-3">
-                                <label for="modal-id-patient" class="form-label">ID Patient</label>
-                                <input type="text" class="form-control" id="modal-id-patient">
-                            </div>
-                            <div class="mb-3">
-                                <label for="modal-appointment-number" class="form-label">Appointment Number</label>
-                                <input type="text" class="form-control" id="modal-appointment-number">
-                            </div>
-                            <div class="mb-3">
-                                <label for="modal-patient-name" class="form-label">Patient Name</label>
-                                <input type="text" class="form-control" id="modal-patient-name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="modal-patient-age" class="form-label">Patient Age</label>
-                                <input type="text" class="form-control" id="modal-patient-age">
-                            </div>
-                            <div class="mb-3">
-                                <label for="modal-date" class="form-label">Date</label>
-                                <input type="text" class="form-control" id="modal-date">
-                            </div>
-                            <div class="mb-3">
-                                <label for="modal-time" class="form-label">Time</label>
-                                <input type="text" class="form-control" id="modal-time">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+    <div class="model" id="modaledit">
+        <div class="model-header">
+            <span class="title">Edit Booking</span>
+            <button class="close-button" onclick="hideModaledit()">&times;</button>
+
+
+            <div class="model-body">
+
+                <input name=date id="caledit" type="datetime-local" onclick="showCal()">
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-danger" id="confermEdit">Confirm Edite</button>
                 </div>
             </div>
         </div>
 
-
-        <!-- <form action="/veiw_booking" id="Edit" method="PUT">
-
-            <div class="model-body">
-
-
-                <input name="patientnameedit" id=name_patient type="text" placeholder="Please Enter edit name patient" required>
-                <br><br>
-                <input name="patientageedit" id=age_patient type="text" placeholder="Please Enter edit age patient" required>
-    
-                <br><br>
-                <input name=dateedit id="caledit" type="datetime-local" onclick="showCal()">
-    
-                <div class="text-center">
-                    <button type="submit" class="btn btn-danger" id="buttonBooking_Edit">Confirm Booking</button>
-    
-                </div>
-    
-    
-
-            </div>
-        </form>
-        
-
-            
-
-
-        
-     -->
-
     </div>
 
-    <div id="overlay" class="overlay"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- this is for backend -->
+    <!-- <div class="model" id="modaledit">
+        <div class="model-header">
+            <span class="title">Edit Booking</span>
+            <button class="close-button" onclick="hideModaledit()">&times;</button>
+        </div>
+        <form method="post" action="/submit"  id="booking">
+            <div class="model-body">
+
+                <input name=date id="caledit" type="datetime-local" onclick="showCal()">
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-danger" id="confermEdit">Confirm Edite</button>
+                </div>
+            </div>
+        </form>
+    </div> -->
+
+
+    <div id="overlay" class="overlay"></div>
+    <script>
+
+        // Edit functionality
+
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('edit')) {
+                const row = event.target.closest('tr');
+                const dataCells = row.querySelectorAll('td.data');
+
+                dataCells.forEach(function (cell) {
+                    const content = cell.innerHTML;
+                    cell.innerHTML = '<input value="' + content + '" />';
+                });
+
+                event.target.style.display = 'none';
+                row.querySelector('.save').style.display = 'inline-block';
+                row.querySelector('.delete').style.display = 'none';
+            }
+        });
+
+
+
+
+
+
+
+    </script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
 
 
     <script src="/static/js/bootstrap.bundle.min.js"></script>
@@ -207,7 +162,7 @@
 
     <!-- <script src="/static/js/booking.js"></script> -->
 
-    
+
 
 
 
