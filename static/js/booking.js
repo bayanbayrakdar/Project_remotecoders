@@ -9,6 +9,18 @@ const successMessage = document.getElementById("successMessage")
 const monthyear = document.getElementById('month-year');
 const days = document.getElementById('days');
 
+// // Get the variables from Flask
+// const idPatient = "{{ id_patient }}";
+// const numberAppointment = "{{ number_appointment }}";
+
+// // Store them in localStorage
+// localStorage.setItem("IdPatient", idPatient);
+// localStorage.setItem("NumberAppointment", numberAppointment);
+
+// // Optionally, log to console to verify
+// console.log('IdPatient:', idPatient);
+// console.log('NumberAppointment:', numberAppointment);
+
 
 // document.getElementById('booking').addEventListener('submit', function (e) {
 //     e.preventDefault();

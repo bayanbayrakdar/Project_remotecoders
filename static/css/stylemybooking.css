@@ -27,7 +27,7 @@ body {
 
 .table thead th {
   padding: 10px;
-  background: #00adee;
+  background: #113744;
   font-size: 15px;
   text-transform: uppercase;
   color: #ffffff; /* White text for contrast */
@@ -83,7 +83,7 @@ body {
 }
 
 .edit:hover {
-  background: #1a88d4; /* Darker on hover */
+  background: #0a3553; /* Darker on hover */
 }
 
 .delete {
@@ -169,4 +169,101 @@ body {
 
 .button-container .btn:hover {
   background-color: #218838; /* Darker green on hover */
+}
+/* appointment-styles.css */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  padding: 15px;
+  border-radius: 4px;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateX(100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+.table-responsive {
+  margin-top: 20px;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.btn-group {
+  display: flex;
+  gap: 5px;
+}
+
+.modal-body .form-group {
+  margin-bottom: 1rem;
+}
+
+.modal-body label {
+  font-weight: 500;
+}
+
+.invalid-feedback {
+  display: block;
+  color: #dc3545;
+  font-size: 80%;
+  margin-top: 0.25rem;
+}
+
+.btn-action {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+}
+
+.datetime-picker {
+  position: relative;
+}
+
+.datetime-picker:after {
+  content: "📅";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.loading {
+  position: relative;
+}
+
+.loading:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin: -10px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
