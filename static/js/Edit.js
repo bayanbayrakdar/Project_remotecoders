@@ -1,10 +1,17 @@
+// Call loadExistingAppointments when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+
+});
 // Update your existing addRow function to handle the JSON structure
-function addRow(event) {
-    event.preventDefault();
+function addRow(IdPatient) {
+
 
     // Get input elements
     const namePatient = document.getElementById('name_patient');
     const agePatient = document.getElementById('age_patient');
+    console.log(namePatient.innerHTML)
+    console.log(agePatient.innerHTML)
+    
     const table = document.getElementById('outputTable').getElementsByTagName('tbody')[0];
 
     // Get data from localStorage
@@ -25,14 +32,14 @@ function addRow(event) {
 
     // Create data object matching your JSON structure
     const appointmentData = {
-        namePatient: namePatient.value,
-        agePatient: agePatient.value,
+        namePatient: namePatient.innerHTML,
+        agePatient: agePatient.innerHTML,
         appointmentDate: newdata,
         appointmentTime: newtime
     };
 
     // Set cell contents
-    cell1.innerHTML = IdPatient.innerHTML || '';  // Use your existing IdPatient variable
+    cell1.innerText = IdPatient;  // Use your existing IdPatient variable
     cell2.innerHTML = '';
     cell3.innerHTML = namePatient.value;
     cell4.innerHTML = agePatient.value;
@@ -70,63 +77,24 @@ function addRow(event) {
 }
 
 
-// Add this new function to load existing appointments
-function loadExistingAppointments() {
-    fetch('/static/appointment.json')
-        .then(response => response.json())
-        .then(data => {
-            const table = document.getElementById('outputTable').getElementsByTagName('tbody')[0];
-
-            // Clear existing table rows
-            table.innerHTML = '';
-
-            // Loop through each patient
-            data.forEach(patient => {
-                // Loop through each appointment for this patient
-                patient.appointments.forEach(appointment => {
-                    const newRow = table.insertRow();
-
-                    // Create cells
-                    const cells = [
-                        patient.IdPatient,
-                        appointment.NumberAppointment,
-                        appointment.name_patient,
-                        appointment.age_patient,
-                        `${appointment.Date.day} ${appointment.Date.month}, ${appointment.Date.year}`,
-                        `${appointment.Time.Hour}:${appointment.Time.Minute}`,
-                        `<button class="save">Save</button>
-                         <button id="buttonEDit" class="btn btn-success" data-toggle="modal" data-target="#myModal" data-id=${appointment.NumberAppointment}>Edit</button>
-                         <button class="delete" onclick="removeRow(this)">Delete</button>`
-                    ];
-
-                    // Add each cell to the row
-                    cells.forEach((content, index) => {
-                        const cell = newRow.insertCell(index);
-                        cell.innerHTML = content;
 
 
-                    });
-                });
-            });
-        })
-        .catch(error => console.error('Error loading appointments:', error));
+
+
+// Your existing event listeners
+const formtable = document.getElementById('booking');
+if (formtable) {
+    const IdPatient = formtable.getAttribute("data-id");
+    formtable.addEventListener('submit', (event) => {
+        event.preventDefault();
+        
+        addRow(IdPatient)
+    });
+
+} else {
+    console.error('Booking form not found');
 }
 
-
-
-// Call loadExistingAppointments when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    loadExistingAppointments();
-
-
-    // Your existing event listeners
-    const formtable = document.getElementById('booking');
-    if (formtable) {
-        formtable.addEventListener('submit', addRow);
-    } else {
-        console.error('Booking form not found');
-    }
-});
 // const cal=document.getElementById("cal")
 // console.log(cal.value)
 function GetCal(event) {
@@ -158,10 +126,10 @@ document.addEventListener('click', (e) => {
 
         // Split the date and time
         const [dateStr, timeStr] = dateTimeInput.split('T');
-        
+
         // Update the table with the new values
         updateTable(appointmentId, dateStr, timeStr);
-        
+
 
         // Optionally, close the modal after updating
         hideModaledit();

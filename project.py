@@ -12,11 +12,11 @@ app=flask.Flask(__name__)
 
 
 app.secret_key = 'asdfghjkl' 
-IdPatient=0
-UserClass = None
-patient = None
-idpatient=0
-number_appointment=0
+# IdPatient=0
+# UserClass = None
+# patient = None
+# idpatient=0
+# number_appointment=0
 class Patient:
     def __init__(self,name, age,date, time):
         self.name=name
@@ -25,10 +25,10 @@ class Patient:
         self.time=time
 
 class Users:
-    def __init__(self,idpatient,name_user,email,password):
+    def __init__(self,idpatient,name_user,password):
         self.idpatient=idpatient
         self.name_user=name_user
-        self.email=email
+        
         self.password=password
 
     def getid(self):
@@ -36,8 +36,7 @@ class Users:
     
     def getname(self):
       return self.name_user
-    def getemail(self):
-      return self.email
+
     def getpassword(self):
         return self.password
 
@@ -86,7 +85,7 @@ def login():
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-    global IdPatient
+    global user
     if request.method == 'POST':
         username = request.form.get("username_login")
         password = request.form.get("password_login")
@@ -99,14 +98,18 @@ def home():
 
         for user in users:
             if user['username'] == username and user['password'] == password:
-                IdPatient = user['idPatient']
+                session["IdPatient"]=user['idPatient']
+                IdPatient=session["IdPatient"]
+                user=Users(IdPatient,username,password)
+                
+                
                 flash('Login successful!', 'success')
 
                 # Fetch doctors
                 doctors = getdoctors()  # Fetch the list of doctors here
 
-                return render_template("home.html", username=username, IdPatient=IdPatient, doctors=doctors)  # Pass doctors to template
-
+                return render_template("home.html", username=username, IdPatient=user.getid(), doctors=doctors)  # Pass doctors to template
+         
     flash('Invalid username or password. Please try again.', 'error')
     return render_template('login.html')
 
@@ -263,6 +266,7 @@ def veiw_booking():
 
     if request.method == 'POST':
         data = request.get_json()
+        print(data)
         
         NewName = data['namePatient']
         NewAge = data['agePatient']
@@ -325,6 +329,7 @@ def veiw_booking():
 
     # Handle GET request
     elif request.method == 'GET':
+        IdPatient=user.getid()
         try:
             with open('static/appointment.json', 'r') as f:
                 appointments_data = json.load(f)
@@ -333,7 +338,8 @@ def veiw_booking():
             patient_appointments = []
             for patient_record in appointments_data:
                 if patient_record["IdPatient"] == IdPatient:
-                    patient_appointments = patient_record.get("appointments", [])
+                    patient_appointments = patient_record["appointments"]
+                    print(patient_appointments)
                     break
             
             # Render template with all appointments for the current patient

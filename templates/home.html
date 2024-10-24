@@ -15,6 +15,8 @@
                 <div class="user-greeting">
                     {% if username %}
                         <h2>Welcome, {{ username }} (ID: {{ IdPatient }})</h2>
+                        <a href="{{ url_for('veiw_booking') }}"><button type="button" class="btn btn-logout" data-id="{{ IdPatient }}">View Bookings</button></a>
+
                     {% else %}
                         <h2>Welcome, Guest</h2>
                     {% endif %}

@@ -33,7 +33,10 @@
             <tbody>
                 {% for appointment in appointments %}
                 <tr data-id="{{ appointment.NumberAppointment }}">
+                    <td>{{ IdPatient }} </td>
                     <td id="appointment-{{ appointment.NumberAppointment }}">{{ appointment.NumberAppointment }}</td>
+                    <td id="name_patient">{{ appointment.name_patient }}</td>
+                    <td id="age_patient">{{ appointment.age_patient }}</td>
                     <td class="date-column">{{ appointment.Date.day }} {{ appointment.Date.month }}, {{
                         appointment.Date.year }}</td>
                     <td class="time-column">{{ appointment.Time.Hour }}:{{ appointment.Time.Minute }}</td>
@@ -66,18 +69,18 @@
             <span class="title">New Booking</span>
             <button class="close-button" onclick="hideModal()">&times;</button>
         </div>
-        <form id="booking" method="POST">
+        <form id="booking" method="POST" action="/veiw_booking" data-id="{{IdPatient}}">
 
             <div class="model-body">
-                <input name="patientname" id=name_patient type="text" placeholder="Please Enter name patient" required>
+                <input name="patientname" id="name_patient" type="text" placeholder="Please Enter name patient" required>
                 <br><br>
-                <input name="patientage" id=age_patient type="text" placeholder="Please Enter age patient" required>
+                <input name="patientage" id="age_patient" type="text" placeholder="Please Enter age patient" required>
 
                 <br><br>
-                <input name=date id="cal" type="datetime-local" onclick="showCal()">
+                <input name="date" id="cal" type="datetime-local" onclick="showCal()">
 
                 <div class="text-center">
-                    <button method="get" type="submit" class="btn btn-danger" id="newbooking_button">Confirm
+                    <button  type="submit" class="btn btn-danger" id="newbooking_button" >Confirm
                         Booking</button>
 
                 </div>
