@@ -339,7 +339,7 @@ def veiw_booking():
             for patient_record in appointments_data:
                 if patient_record["IdPatient"] == IdPatient:
                     patient_appointments = patient_record["appointments"]
-                    print(patient_appointments)
+                   
                     break
             
             # Render template with all appointments for the current patient
@@ -371,6 +371,59 @@ def veiw_booking():
                 IdPatient=IdPatient
             )
  
+
+@app.route('/update', methods=["POST"])
+def update():
+    dataUpdate=request.get_json()
+    IdPatient=dataUpdate.get("IdPatient")
+    appointmentId=dataUpdate.get("appointmentId")
+    date=dataUpdate.get("date")
+    time=dataUpdate.get("time")
+    dateobj = datetime.strptime(date, '%Y-%m-%d')
+    Timeobj = datetime.strptime(time, '%H:%M')  
+    day=dateobj.day
+    month=dateobj.month
+    year=dateobj.year
+    Hour=Timeobj.hour
+    Minute=Timeobj.minute
+
+
+    # Load the JSON data
+    with open('static/appointment.json', 'r') as f:
+        appointments_data = json.load(f)
+
+    # Print "jj"
+    print("jj")
+
+    # Continue with the rest of your code...
+    for patient in appointments_data:
+        
+        print(f"Type of IdPatient in data: {type(patient['IdPatient'])}")
+        print(f"Type of IdPatient parameter: {type(IdPatient)}")
+        if int(patient["IdPatient"] )== int(IdPatient):
+            
+            for appointment in patient["appointments"]:
+                if int(appointment["NumberAppointment"]) == int(appointmentId):
+                    
+                    
+                    appointment["Date"]["day"] = day
+                    appointment["Date"]["month"] = month
+                    appointment["Date"]["year"] = year
+                    appointment["Time"]["Hour"] = Hour
+                    appointment["Time"]["Minute"] = Minute
+
+                
+
+                    
+    
+    with open('static/appointment.json', 'w') as f:
+        json.dump(appointments_data, f, indent=4)
+        
+
+
+
+    return jsonify(message='Appointment updated successfully'), 201
+
 
 
 

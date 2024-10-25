@@ -30,7 +30,7 @@ function login(event) {
     };
 
 
-    fetch('/home', {  // Adjust the endpoint as needed
+    fetch('/home', {  
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

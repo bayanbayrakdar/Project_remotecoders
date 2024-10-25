@@ -11,7 +11,7 @@ function addRow(IdPatient) {
     const agePatient = document.getElementById('age_patient');
     console.log(namePatient.innerHTML)
     console.log(agePatient.innerHTML)
-    
+
     const table = document.getElementById('outputTable').getElementsByTagName('tbody')[0];
 
     // Get data from localStorage
@@ -85,9 +85,9 @@ function addRow(IdPatient) {
 const formtable = document.getElementById('booking');
 if (formtable) {
     const IdPatient = formtable.getAttribute("data-id");
-    formtable.addEventListener('submit', (event) => {
-        event.preventDefault();
-        
+    formtable.addEventListener('submit', () => {
+        // event.preventDefault();
+
         addRow(IdPatient)
     });
 
@@ -108,45 +108,76 @@ function GetCal(event) {
 
 //this is for backend to edit 
 document.addEventListener('click', (e) => {
-    // Check if the edit button was clicked
+    
+
     if (e.target.getAttribute('id') === 'buttonEDit') {
-        showModaledit(); // Show the modal
-        const appointmentId = e.target.getAttribute("data-id"); // Get appointment ID
-        console.log(appointmentId);
-        localStorage.setItem("appointmentId", appointmentId); // Store it in local storage
+        showModaledit();
+        const appointmentId = e.target.getAttribute("data-id");
+        const IdPatient = document.getElementById("IdPatient").innerText
+
+        localStorage.setItem("appointmentId", appointmentId);
+        localStorage.setItem("IdPatient", IdPatient);
     }
 
-    // Check if the confirm edit button was clicked
+
     if (e.target.getAttribute('id') === 'confermEdit') {
+        e.preventDefault()
         const dateTimeInput = document.getElementById("caledit").value; // Get the date and time input
         console.log(dateTimeInput);
 
-        // Retrieve the appointment ID from local storage
-        const appointmentId = localStorage.getItem("appointmentId");
 
-        // Split the date and time
+        const appointmentId = localStorage.getItem("appointmentId");
+        const IdPatient = localStorage.getItem("IdPatient");
+
+
         const [dateStr, timeStr] = dateTimeInput.split('T');
 
-        // Update the table with the new values
-        updateTable(appointmentId, dateStr, timeStr);
+
+        updateTable(IdPatient, appointmentId, dateStr, timeStr);
 
 
-        // Optionally, close the modal after updating
         hideModaledit();
     }
 });
 
 // Function to update the table
-function updateTable(appointmentId, date, time) {
+function updateTable(IdPatient, appointmentId, date, time) {
     // Find the table row corresponding to the appointmentId
-    const row = document.querySelector(`tr[data-id="${appointmentId}"]`); // Use the appointmentId to find the row
+    const row = document.querySelector(`tr[data-id="${appointmentId}"]`);
     if (row) {
-        // Update the date and time in the table
-        row.querySelector('.date-column').textContent = date; // Update date column
-        row.querySelector('.time-column').textContent = time; // Update time column
+
+        row.querySelector('.date-column').textContent = date;
+        row.querySelector('.time-column').textContent = time;
     } else {
         console.error('No row found for appointment ID:', appointmentId);
     }
+    const updateDate = {
+        IdPatient: IdPatient,
+        appointmentId: appointmentId,
+        date: date,
+        time: time,
+    }
+    fetch('/update', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updateDate)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message); 
+            if (data.success) {
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
 
 

@@ -16,7 +16,7 @@
     <h1 id="text">dashborde patient</h1>
     <a href="{{url_for('booking')}}"><button class="btn btn-primary">Back</button></a>
 
-    <form method="get">
+    <form method="get" onsubmit="return false;">
         <table id="outputTable" class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -32,8 +32,8 @@
             </thead>
             <tbody>
                 {% for appointment in appointments %}
-                <tr data-id="{{ appointment.NumberAppointment }}">
-                    <td>{{ IdPatient }} </td>
+                <tr data-id="{{ appointment.NumberAppointment }}" >
+                    <td id="IdPatient">{{ IdPatient }} </td>
                     <td id="appointment-{{ appointment.NumberAppointment }}">{{ appointment.NumberAppointment }}</td>
                     <td id="name_patient">{{ appointment.name_patient }}</td>
                     <td id="age_patient">{{ appointment.age_patient }}</td>
@@ -42,7 +42,7 @@
                     <td class="time-column">{{ appointment.Time.Hour }}:{{ appointment.Time.Minute }}</td>
                     <td style="text-align:center;">
                         <button class="save">Save</button>
-                        <button class="edit btn btn-success" id="buttonEDit"
+                        <button type="button" class="edit btn btn-success" id="buttonEDit"
                             data-id="{{ appointment.NumberAppointment }}">Edit</button>
                         <button class="delete" onclick="removeRow(this)">Delete</button>
                     </td>
