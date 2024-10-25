@@ -24,6 +24,27 @@ class Patient:
         self.date=date
         self.time=time
 
+class Doctor:
+    def __init__(self, doctor_id, name):
+        self.doctor_id = doctor_id  
+        self.name = name             
+
+    
+    def get_doctor_id(self):
+        return self.doctor_id
+
+    
+    def set_doctor_id(self, doctor_id):
+        self.doctor_id = doctor_id
+
+    
+    def get_name(self):
+        return self.name
+
+    
+    def set_name(self, name):
+        self.name = name
+
 class Users:
     def __init__(self,idpatient,name_user,password):
         self.idpatient=idpatient
@@ -62,7 +83,7 @@ def getjson(file):
 
 
 @app.route('/')
-def home1():
+def homepage():
     # Assume you have a function to get the list of doctors
     doctors = getdoctors()  # This should return a list of doctors
     username = session.get('username')  # Get the username from session
@@ -90,8 +111,7 @@ def home():
         username = request.form.get("username_login")
         password = request.form.get("password_login")
 
-        users = getjson("users")  # Assuming this function returns a list of user dictionaries
-
+        users = getjson("users")  
         if not username or not password:
             flash('Both username and password are required.', 'error')
             return render_template("login.html") 
@@ -105,8 +125,8 @@ def home():
                 
                 flash('Login successful!', 'success')
 
-                # Fetch doctors
-                doctors = getdoctors()  # Fetch the list of doctors here
+                
+                doctors = getdoctors()  
 
                 return render_template("home.html", username=username, IdPatient=user.getid(), doctors=doctors)  # Pass doctors to template
          
@@ -123,10 +143,10 @@ def signup_page():
 
 
 
-@app.route('/signup', methods=['POST'])
+@app.route("/signup", methods=['POST'])
 def signup():
     global UserClass 
-    data = request.json
+    data = request.get_json()
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')
@@ -160,16 +180,15 @@ def signup():
         "password": password
     }
     users.append(user_data)
-    UserClass = Users(idPatient, username, email, password)
-    # print(UserClass.getid())
+    # UserClass = Users(idPatient, username, email, password)
 
     with open('static/users.json', 'w') as f:
         json.dump(users, f, indent=2)
-
-    # print(idPatient)
-    jsonify(message='SignUp successful!'), 201
-    # Instead of flash, return a success message
-    return render_template("home.html")
+    
+    return jsonify({
+        'message': 'SignUp successful!',
+        'redirect': '/home'
+    }), 201
 
 
 
@@ -182,8 +201,10 @@ def about():
 #get booking page
 @app.route("/booking")
 def booking():
-    
-    return render_template("booking.html")  
+    doctor_name=request.args.get('doctor_name')
+    doctor_id=request.args.get('doctor_id')
+    doctor=Doctor(doctor_id,doctor_name)
+    return render_template("booking.html" , doctor_name=doctor.get_name())  
 
 
 @app.route("/booking", methods=['POST'])
@@ -233,7 +254,7 @@ def appointment():
             }
         }
 
-        # Find the patient by IdPatient and append the new appointment
+        
         patient_found = False
         for patient_record in appointments:
             if patient_record["IdPatient"] == IdPatient:
@@ -263,6 +284,7 @@ def veiw_booking():
     global UserClass
     global patient
     global IdPatient
+    global user
 
     if request.method == 'POST':
         data = request.get_json()
@@ -370,7 +392,31 @@ def veiw_booking():
                 appointments=[],
                 IdPatient=IdPatient
             )
- 
+
+#delete 
+@app.route('/delete' , methods=["DELETE"])
+def delete():
+    dataDelete=request.get_json()
+    IdPatient=dataDelete.get("IdPatient")
+    appointmentId=dataDelete.get("appointmentId")
+    with open('static/appointment.json', 'r') as f:
+       appointments_data = json.load(f)
+
+
+    # Find the patient and delete the appointment
+    for patient in appointments_data:
+        if int(patient["IdPatient"]) == int(IdPatient):  
+            patient["appointments"] = [
+                appointment for appointment in patient["appointments"]
+                if int(appointment["NumberAppointment"]) != int(appointmentId)
+            ]
+    with open('static/appointment.json', 'w') as f:
+        json.dump(appointments_data, f, indent=4)
+
+    return {"message": "Appointment deleted successfully."}, 200
+
+
+
 
 @app.route('/update', methods=["POST"])
 def update():
@@ -392,14 +438,9 @@ def update():
     with open('static/appointment.json', 'r') as f:
         appointments_data = json.load(f)
 
-    # Print "jj"
-    print("jj")
-
-    # Continue with the rest of your code...
     for patient in appointments_data:
         
-        print(f"Type of IdPatient in data: {type(patient['IdPatient'])}")
-        print(f"Type of IdPatient parameter: {type(IdPatient)}")
+
         if int(patient["IdPatient"] )== int(IdPatient):
             
             for appointment in patient["appointments"]:
@@ -413,15 +454,9 @@ def update():
                     appointment["Time"]["Minute"] = Minute
 
                 
-
-                    
-    
     with open('static/appointment.json', 'w') as f:
         json.dump(appointments_data, f, indent=4)
         
-
-
-
     return jsonify(message='Appointment updated successfully'), 201
 
 

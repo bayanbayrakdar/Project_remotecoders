@@ -44,7 +44,7 @@
                         <button class="save">Save</button>
                         <button type="button" class="edit btn btn-success" id="buttonEDit"
                             data-id="{{ appointment.NumberAppointment }}">Edit</button>
-                        <button class="delete" onclick="removeRow(this)">Delete</button>
+                        <button type="button"  class="delete btn btn-danger" id="buttonDELET" appointment_id="{{appointment.NumberAppointment}}" onclick="removerow(this)" >Delete</button>
                     </td>
                 </tr>
                 {% else %}

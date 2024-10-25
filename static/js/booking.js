@@ -9,28 +9,6 @@ const successMessage = document.getElementById("successMessage")
 const monthyear = document.getElementById('month-year');
 const days = document.getElementById('days');
 
-// // Get the variables from Flask
-// const idPatient = "{{ id_patient }}";
-// const numberAppointment = "{{ number_appointment }}";
-
-// // Store them in localStorage
-// localStorage.setItem("IdPatient", idPatient);
-// localStorage.setItem("NumberAppointment", numberAppointment);
-
-// // Optionally, log to console to verify
-// console.log('IdPatient:', idPatient);
-// console.log('NumberAppointment:', numberAppointment);
-
-
-// document.getElementById('booking').addEventListener('submit', function (e) {
-//     e.preventDefault();
-    
-//     const hour = document.getElementById('hour').value;
-//     const minute = document.getElementById('minute').value;
-//     // Now you can use these values for your booking logic
-// });
-
-
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get the username from local storage

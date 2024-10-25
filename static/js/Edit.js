@@ -1,20 +1,30 @@
-// Call loadExistingAppointments when the page loads
-document.addEventListener('DOMContentLoaded', () => {
 
+document.addEventListener('DOMContentLoaded', () => {
+    
+    const namePatient = document.getElementById('name_patient');
+    const agePatient = document.getElementById('age_patient');
+
+    
+    document.getElementById('booking').addEventListener('submit', (event) => {
+        event.preventDefault(); 
+        
+        localStorage.setItem("name_patientnew", namePatient.innerText);
+        localStorage.setItem("age_patientnew", agePatient.innerText);
+    });
 });
-// Update your existing addRow function to handle the JSON structure
+
 function addRow(IdPatient) {
 
 
-    // Get input elements
-    const namePatient = document.getElementById('name_patient');
-    const agePatient = document.getElementById('age_patient');
-    console.log(namePatient.innerHTML)
-    console.log(agePatient.innerHTML)
+
 
     const table = document.getElementById('outputTable').getElementsByTagName('tbody')[0];
+    
 
-    // Get data from localStorage
+    const namePatient = localStorage.getItem("name_patientnew");
+    const agePatient = localStorage.getItem("age_patientnew");
+    console.log( namePatient)
+    
     const newdata = localStorage.getItem("newdata");
     const newtime = localStorage.getItem("newtime");
 
@@ -30,7 +40,7 @@ function addRow(IdPatient) {
     const cell6 = newRow.insertCell(5);
     const cell7 = newRow.insertCell(6);
 
-    // Create data object matching your JSON structure
+   
     const appointmentData = {
         namePatient: namePatient.innerHTML,
         agePatient: agePatient.innerHTML,
@@ -38,11 +48,11 @@ function addRow(IdPatient) {
         appointmentTime: newtime
     };
 
-    // Set cell contents
-    cell1.innerText = IdPatient;  // Use your existing IdPatient variable
+    
+    cell1.innerText = IdPatient;  
     cell2.innerHTML = '';
-    cell3.innerHTML = namePatient.value;
-    cell4.innerHTML = agePatient.value;
+    cell3.innerHTML = namePatient.innerText;
+    cell4.innerHTML = agePatient.innerText;
     cell5.innerHTML = newdata || "No Date";
     cell6.innerHTML = newtime || "No Time";
     cell7.innerHTML = `
@@ -183,20 +193,69 @@ function updateTable(IdPatient, appointmentId, date, time) {
 
 
 
+document.addEventListener('click', (e) => {
+    e.stopPropagation();
+    
+    if (e.target.getAttribute('id') === 'buttonDELET') {
+        e.preventDefault();
+        
+        const appointmentId = e.target.getAttribute("appointment_id");
+        const row = e.target.closest('tr');
+        const IdPatient = row.cells[0].innerText; 
 
+        
+        localStorage.setItem("appointmentIddelete", appointmentId);
+        localStorage.setItem("IdPatientdelete", IdPatient);
+        
+        
+        const storedAppointmentId = localStorage.getItem("appointmentIddelete");
+        const storedIdPatient = localStorage.getItem("IdPatientdelete");
+        removeRow(storedIdPatient, storedAppointmentId);
+        
+        // Remove the row from the UI
+        removerow(e.target);
+    }
+});
 
-
-
-
-
-
-// Your existing removeRow function remains the same
-function removeRow(button) {
+// Keep this as a separate function for UI removal
+function removerow(button) {
     const row = button.closest('tr');
     if (row) {
         row.remove();
     }
 }
+
+
+function removeRow(IdPatient, appointmentId) {
+    const removedata = {
+        IdPatient: IdPatient,
+        appointmentId: appointmentId,
+    };
+    
+    fetch('/delete', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(removedata)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error deleting appointment');
+    });
+}
+
+
+
 
 // Your existing modal functions remain the same
 function showModal() {
@@ -228,41 +287,22 @@ function showCal() {
 
 // Your existing datetime event listener
 document.addEventListener("DOMContentLoaded", function () {
+    // Get input elements
     const input = document.getElementById('cal');
+
     input.addEventListener('change', function () {
         const dateTime = new Date(this.value);
         const date = dateTime.toISOString().split('T')[0];
         const time = dateTime.toTimeString().split(' ')[0];
         localStorage.setItem("newdata", date);
         localStorage.setItem("newtime", time);
+
     });
 });
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('form'); // Select the form element
-    form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent the form from submitting
-    });
 
-    const editButtons = document.querySelectorAll('.edit'); // Get all buttons with class 'edit'
-
-    editButtons.forEach(button => {
-        button.addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent default action
-
-            const row = button.closest('tr'); // Get the row of the clicked button
-            const cells = row.getElementsByTagName('td');
-
-            // Access the ID of the appointment
-            const appointmentId = cells[1].id;
-            console.log('Editing appointment with ID:', appointmentId);
-
-            // Implement your logic to populate modal here
-        });
-    });
-});
 
 
 

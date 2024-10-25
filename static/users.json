@@ -97,5 +97,11 @@
     "username": "pjh",
     "email": "5@kmk.com",
     "password": "55"
+  },
+  {
+    "idPatient": 14,
+    "username": "bayan",
+    "email": "bayan.bayrakdar98@gmail.com",
+    "password": "1"
   }
 ]

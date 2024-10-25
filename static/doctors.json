@@ -1,5 +1,6 @@
 [
     {
+        "id" : 1,
         "name": "Dr. Robert Brown",
         "specialization": "Cardiology",
         "qualification": "MD, FACC",
@@ -9,6 +10,7 @@
         "booking_url": "{{url_for('booking')}}"
     },
     {
+        "id" : 2,
         "name": "Dr. Michael Smith",
         "specialization": "Orthopedics",
         "qualification": "MD, FRCS",
@@ -18,6 +20,7 @@
         "booking_url": "{{url_for('booking')}}"
     },
     {
+        "id" : 3,
         "name": "Dr. Emily Davis",
         "specialization": "Pediatrics",
         "qualification": "MD, FAAP",
@@ -27,6 +30,7 @@
         "booking_url": "{{url_for('booking')}}"
     },
     {
+        "id":4,
         "name": "Dr. David Lee",
         "specialization": "Neurology",
         "qualification": "MD, DPN",
@@ -36,6 +40,7 @@
         "booking_url": "{{url_for('booking')}}"
     },
     {
+        "id" : 5,
         "name": "Dr. Jessica Taylor",
         "specialization": "Dermatology",
         "qualification": "MD, FAAD",
@@ -45,6 +50,7 @@
         "booking_url": "{{url_for('booking')}}"
     },
     {
+        "id" : 6 ,
         "name": "Dr. Sarah Johnson",
         "specialization": "General Surgery",
         "qualification": "MD, FACS",

@@ -13,8 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function signup(event) {
         event.preventDefault();
-
-        // Here, we are not initializing id_patient in the frontend, it's managed by the backend
         const userData = {
             username: username.value,
             email: email.value,
@@ -39,16 +37,17 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!response.ok) {
                 return response.json().then(err => { throw new Error(err.message); });
             }
-            return response.json();  // Parse JSON from the response
+            return response.json();
         })
         .then(data => {
-            console.log(data.message);  // Handle the success message
-            // Redirect to the home page on successful registration
-            window.location.href = '/home';  // Change this to your home URL
+            alert(data.message); // Show success message
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            }
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
-            // Optionally display an error message to the user
+            alert(error.message || 'An error occurred during signup');
         });
     }
 });
