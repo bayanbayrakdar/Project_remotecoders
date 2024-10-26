@@ -100,46 +100,10 @@ def homepage():
 
     return render_template('home.html', doctors=doctors, username=username, IdPatient=IdPatient)
 
-    
 
 
-@app.route("/login")
-def login():
-
-    return render_template('login.html') 
 
 
-@app.route("/home", methods=['GET', 'POST'])
-def home():
-    global user
-    if request.method == 'POST':
-        username = request.form.get("username_login")
-        password = request.form.get("password_login")
-
-        users = getjson("users")  
-        if not username or not password:
-            flash('Both username and password are required.', 'error')
-            return render_template("login.html") 
-        
-
-        
-
-        for user in users:
-            if user['username'] == username and user['password'] == password:
-                session["IdPatient"]=user['idPatient']
-                IdPatient=session["IdPatient"]
-                user=Users(IdPatient,username,password)
-                
-                
-                flash('Login successful!', 'success')
-
-                
-                doctors = getdoctors()  
-
-                return render_template("home.html", username=username, IdPatient=user.getid(), doctors=doctors) 
-         
-    flash('Invalid username or password. Please try again.', 'error')
-    return render_template('login.html')
 
 
 
@@ -228,6 +192,64 @@ def signup():
             return render_template("signup.html")
 
     return render_template("signup.html")
+
+
+@app.route("/login")
+def login():
+
+    return render_template('login.html') 
+
+@app.route("/home", methods=['GET', 'POST'])
+def home():
+    print(session.get("IdPatient"))
+    if request.method == 'POST':
+                username = request.form.get("username_login")
+                password = request.form.get("password_login")
+
+                users = getjson("users")
+
+                
+                
+                if not username or not password:
+                    flash('Both username and password are required.', 'error')
+                    return render_template("login.html") 
+
+                for user in users:
+                    if user['username'] == username and user['password'] == password:
+                        session["IdPatient"] = user['idPatient']
+                        session["username"]=user["username"]
+                        session["password"]=user['password']
+                        flash('Login successful!', 'success')
+                        
+                        doctors = getdoctors()  
+                        return render_template("home.html", username=username, IdPatient=user['idPatient'], doctors=doctors)
+
+                flash('Invalid username or password. Please try again.', 'error')
+                return render_template('login.html')
+        
+    else:
+        print(session["IdPatient"])
+
+        username = session.get("username")  
+        doctors = getdoctors() 
+        print(username) 
+        return render_template("home.html", username=username, IdPatient=session["IdPatient"], doctors=doctors)
+    
+
+
+
+
+@app.route("/logout")
+def logout():
+  session.clear()
+  doctors = getdoctors() 
+  return render_template("home.html",doctors=doctors)
+
+            
+
+         
+    
+
    
 @app.route("/about")
 def about():

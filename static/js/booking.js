@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Check if username exists and display it
     if (username) {
-        document.getElementById('welcomeMessage').innerText = `Welcome back, ${username}!`;
+        document.getElementById('welcomeMessage').innerText = ` ${username}`;
     } else {
         document.getElementById('welcomeMessage').innerText = 'Welcome to the Booking Page!';
     }

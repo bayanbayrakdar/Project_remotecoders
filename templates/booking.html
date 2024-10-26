@@ -12,8 +12,8 @@
 
 <body>
     <div class="container mt-5">
-        <h1>Booking Appointment {{ doctor_name }} {{ specialization }}</h1>
-        <h2 id="welcomeMessage"></h2><br>
+        <h1>Booking Appointment <span id="welcomeMessage"></span></h1>
+        
         {% if doctor_name %}
             <p>Doctor: <span id="doctorNameDisplay">{{ doctor_name }}</span></p>
             <p>Specialization: <span id="doctorspecializationDisplay">{{ specialization }}</span></p>
@@ -28,18 +28,13 @@
         </div>
 
         <div class="text-center mb-4">
-            <a href="{{url_for('veiw_booking')}}"><button type="button" class="btn btn-outline-info">View My Booking
+            <a href="{{url_for('veiw_booking')}}"><button type="button" class="btn btn-secondary">View My Booking
                 </button></a>
         </div>
 
 
-        <h1>booking appointment {{ doctor_name }} {{ specialization }}</h1>
-
         <form action="/veiw_booking" id=booking method="POST">
-            <div class="text-center">
-                <button type="submit" class="btn btn-danger" id="booking_button">Confirm Booking</button>
 
-            </div>
             <div class="form-group">
                 <input id="name_patient" type="text" class="form-control mb-3" placeholder="Enter Patient's Name"
                     required>
