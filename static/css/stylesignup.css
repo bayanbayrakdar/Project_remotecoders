@@ -94,3 +94,67 @@ i {
     font-size: 20px; /* Icon size */
     color: #aaa; /* Light gray for icons */
 }
+
+
+.error {
+    color: red;
+    margin: 5px 0;
+    font-size: 14px;
+}
+.success {
+    color: green;
+    margin: 5px 0;
+    font-size: 14px;
+}
+.signup_box {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+.signup_box form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.signup_box input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.signup_box button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.signup_box button:hover {
+    background-color: #0056b3;
+}
+.flash-messages {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+    .signup_box {
+        padding: 1.5rem;
+    }
+    button {
+        padding: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .signup_box {
+        padding: 1rem;
+    }
+
+    button {
+        padding: 0.6rem;
+    }
+}

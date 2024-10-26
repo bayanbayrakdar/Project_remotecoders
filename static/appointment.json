@@ -1,173 +1,21 @@
 [
     {
-        "IdPatient": 4,
-        "appointments": []
-    },
-    {
-        "IdPatient": 3,
+        "IdPatient": "3",
         "appointments": [
             {
-                "NumberAppointment": 4,
-                "name_patient": "kkkkkkkkkkkk",
-                "age_patient": 44,
+                "NumberAppointment": 1,
+                "name_doctor": "Dr. David Lee",
+                "specialization": "Neurology",
+                "name_patient": "beno",
+                "age_patient": 8,
                 "Date": {
-                    "day": 28,
+                    "day": "4",
                     "month": "October",
                     "year": "2024"
                 },
                 "Time": {
-                    "Hour": "8",
-                    "Minute": "8"
-                }
-            },
-            {
-                "NumberAppointment": 5,
-                "name_patient": "new",
-                "age_patient": "2",
-                "Date": {
-                    "day": 4,
-                    "month": 10,
-                    "year": 2024
-                },
-                "Time": {
-                    "Hour": 11,
-                    "Minute": 41
-                }
-            },
-            {
-                "NumberAppointment": 6,
-                "name_patient": "new",
-                "age_patient": "2",
-                "Date": {
-                    "day": 10,
-                    "month": 10,
-                    "year": 2024
-                },
-                "Time": {
-                    "Hour": 10,
-                    "Minute": 28
-                }
-            },
-            {
-                "NumberAppointment": 7,
-                "name_patient": "new",
-                "age_patient": "2",
-                "Date": {
-                    "day": 11,
-                    "month": 10,
-                    "year": 2024
-                },
-                "Time": {
-                    "Hour": 10,
-                    "Minute": 53
-                }
-            },
-            {
-                "NumberAppointment": 8,
-                "name_patient": "bazan",
-                "age_patient": 7,
-                "Date": {
-                    "day": "2",
-                    "month": "October",
-                    "year": "2024"
-                },
-                "Time": {
-                    "Hour": "14",
-                    "Minute": "7"
-                }
-            },
-            {
-                "NumberAppointment": 9,
-                "name_patient": "new",
-                "age_patient": "2",
-                "Date": {
-                    "day": 11,
-                    "month": 10,
-                    "year": 2024
-                },
-                "Time": {
-                    "Hour": 10,
-                    "Minute": 59
-                }
-            },
-            {
-                "NumberAppointment": 10,
-                "name_patient": "new",
-                "age_patient": "2",
-                "Date": {
-                    "day": 18,
-                    "month": 10,
-                    "year": 2024
-                },
-                "Time": {
-                    "Hour": 11,
-                    "Minute": 0
-                }
-            },
-            {
-                "NumberAppointment": 11,
-                "name_patient": "new",
-                "age_patient": "2",
-                "Date": {
-                    "day": 11,
-                    "month": 10,
-                    "year": 2024
-                },
-                "Time": {
-                    "Hour": 11,
-                    "Minute": 0
-                }
-            }
-        ]
-    },
-    {
-        "IdPatient": 6,
-        "appointments": [
-            {
-                "NumberAppointment": 15,
-                "name_patient": "",
-                "age_patient": "",
-                "Date": {
-                    "day": 11,
-                    "month": 10,
-                    "year": 2024
-                },
-                "Time": {
-                    "Hour": 11,
-                    "Minute": 5
-                }
-            }
-        ]
-    },
-    {
-        "IdPatient": 14,
-        "appointments": [
-            {
-                "NumberAppointment": 16,
-                "name_patient": "d",
-                "age_patient": 7,
-                "Date": {
-                    "day": "5",
-                    "month": "October",
-                    "year": "2024"
-                },
-                "Time": {
-                    "Hour": "14",
-                    "Minute": "7"
-                }
-            },
-            {
-                "NumberAppointment": 17,
-                "name_patient": "mmm",
-                "age_patient": 1,
-                "Date": {
-                    "day": "3",
-                    "month": "October",
-                    "year": "2024"
-                },
-                "Time": {
-                    "Hour": "5",
-                    "Minute": "7"
+                    "Hour": "13",
+                    "Minute": "4"
                 }
             }
         ]

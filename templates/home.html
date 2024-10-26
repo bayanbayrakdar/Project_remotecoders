@@ -57,7 +57,7 @@
                                 <p class="card-text">Qualification: {{ doctor.qualification }}</p>
                                 <p class="card-text">Experience: {{ doctor.experience }} years</p>
                                 <div class="text-center">
-                                    <a href="{{ url_for('booking', doctor_id=doctor.id, doctor_name=doctor.name) }}" class="btn btn-danger">Book Now</a>
+                                    <a href="{{ url_for('booking', doctor_id=doctor.id, doctor_name=doctor.name ,doctor_specialization=doctor.specialization ) }}" class="btn btn-danger">Book Now</a>
                                 </div>
                             </div>
                         </div>

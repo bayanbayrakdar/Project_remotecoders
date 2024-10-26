@@ -8,26 +8,26 @@ body {
 
 /* Navbar Styles */
 .navbar {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space between logo and greeting */
-    align-items: center; /* Center items vertically */
-    padding: 15px 30px; /* Padding for the navbar */
-    background-color: #192a3c; /* Primary color for the navbar */
-    color: white; /* Text color */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 15px 30px; 
+    background-color: #192a3c; 
+    color: white; 
 }
 
 .logo {
-    font-size: 24px; /* Size for the logo */
-    font-weight: bold; /* Bold text for emphasis */
+    font-size: 24px; 
+    font-weight: bold; 
 }
 
 .user-greeting {
-    font-size: 16px; /* Font size for the greeting */
-    text-align: right; /* Right-align the greeting */
+    font-size: 16px; 
+    text-align: right; 
 }
 
 h2 {
-    margin: 0; /* Remove default margin */
+    margin: 0;
 }
 
 

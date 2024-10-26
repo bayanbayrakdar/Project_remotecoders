@@ -1,11 +1,7 @@
 const button_login=document.getElementById("button_login")
 const button_logout=document.getElementById("logout")
 const buttton_clear=document.getElementById("clear")
-const doctor_name=document.getElementById("doctor_id")
-const doctor_id=document.getElementById("doctor_name")
-
-localStorage.setItem("doctor_name",doctor_name)
-localStorage.setItem("doctor_id",doctor_id)
+// button_login.addEventListener("click", ()=>{window.location.href="/login"})
 function removeUser(){
 
     localStorage.removeItem("username")

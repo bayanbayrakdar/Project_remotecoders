@@ -12,13 +12,15 @@
 
 <body>
     <div class="container mt-5">
-        <h1>booking appointment</h1>
+        <h1>Booking Appointment {{ doctor_name }} {{ specialization }}</h1>
         <h2 id="welcomeMessage"></h2><br>
         {% if doctor_name %}
-        <p>Doctor: {{ doctor_name }}</p>
+            <p>Doctor: <span id="doctorNameDisplay">{{ doctor_name }}</span></p>
+            <p>Specialization: <span id="doctorspecializationDisplay">{{ specialization }}</span></p>
         {% else %}
-        <p>No doctor selected.</p>
+            <p>No doctor selected.</p>
         {% endif %}
+        
 
         <br>
         <div class="alert alert-success" style="display: none; " id="successMessage">
@@ -31,7 +33,7 @@
         </div>
 
 
-
+        <h1>booking appointment {{ doctor_name }} {{ specialization }}</h1>
 
         <form action="/veiw_booking" id=booking method="POST">
             <div class="text-center">

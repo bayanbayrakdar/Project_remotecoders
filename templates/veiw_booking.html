@@ -14,7 +14,7 @@
 <body>
 
     <h1 id="text">dashborde patient</h1>
-    <a href="{{url_for('booking')}}"><button class="btn btn-primary">Back</button></a>
+    <a href="{{url_for('home')}}"><button class="btn btn-primary">Back</button></a>
 
     <form method="get" onsubmit="return false;">
         <table id="outputTable" class="table table-bordered table-striped">
@@ -22,6 +22,8 @@
                 <tr>
                     <th style="text-align:center;">Id patient</th>
                     <th style="text-align:center;">number Appointment</th>
+                    <th style="text-align:center;">Name Doctor</th>
+                    <th style="text-align:center;">specialization</th>
                     <th style="text-align:center;">Name Patient</th>
                     <th style="text-align:center;">Age Patient</th>
                     <th style="text-align:center;">Time</th>
@@ -35,6 +37,8 @@
                 <tr data-id="{{ appointment.NumberAppointment }}" >
                     <td id="IdPatient">{{ IdPatient }} </td>
                     <td id="appointment-{{ appointment.NumberAppointment }}">{{ appointment.NumberAppointment }}</td>
+                    <td id="name_doctor">{{ appointment.name_doctor}}</td>
+                    <td id="specialization"> {{ appointment.specialization}} </td>                   
                     <td id="name_patient">{{ appointment.name_patient }}</td>
                     <td id="age_patient">{{ appointment.age_patient }}</td>
                     <td class="date-column">{{ appointment.Date.day }} {{ appointment.Date.month }}, {{

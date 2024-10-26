@@ -1,9 +1,10 @@
 
-from flask import Flask, request,flash, jsonify,render_template,session
+from flask import Flask, request,flash, jsonify,render_template,session,redirect,url_for
 import flask
 import json
 import os
 from datetime import datetime
+import re
 
 
 app=flask.Flask(__name__)
@@ -25,9 +26,10 @@ class Patient:
         self.time=time
 
 class Doctor:
-    def __init__(self, doctor_id, name):
+    def __init__(self, doctor_id, name,specialization):
         self.doctor_id = doctor_id  
-        self.name = name             
+        self.name = name 
+        self.specialization=specialization            
 
     
     def get_doctor_id(self):
@@ -36,6 +38,13 @@ class Doctor:
     
     def set_doctor_id(self, doctor_id):
         self.doctor_id = doctor_id
+
+    def set_doctor_specialization(self, specialization):
+        self.specialization = specialization
+
+    
+    def get_specialization(self):
+        return self.specialization
 
     
     def get_name(self):
@@ -73,32 +82,28 @@ def getjson(file):
     if os.path.exists(file_path):
         with open(file_path, 'r') as f:
             try:
-                return json.load(f)  # Return loaded JSON data
+                return json.load(f) 
             except json.JSONDecodeError:
-                return []  # Return empty list if JSON is invalid
+                return []  
     else:
-        return []  # Return empty list if file doesn't exist
+        return [] 
 
 
 
 
 @app.route('/')
 def homepage():
-    # Assume you have a function to get the list of doctors
-    doctors = getdoctors()  # This should return a list of doctors
+    
+    doctors = getdoctors()  
     username = session.get('username')  # Get the username from session
     IdPatient = session.get('IdPatient')  # Get the patient ID from session
 
     return render_template('home.html', doctors=doctors, username=username, IdPatient=IdPatient)
 
     
-   
 
-def authenticate(username, password):
-    # Dummy authentication logic (replace with your own)
-    return username == "admin" and password == "password"
 
-@app.route("/login", methods=['POST' ,'GET'])
+@app.route("/login")
 def login():
 
     return render_template('login.html') 
@@ -115,6 +120,9 @@ def home():
         if not username or not password:
             flash('Both username and password are required.', 'error')
             return render_template("login.html") 
+        
+
+        
 
         for user in users:
             if user['username'] == username and user['password'] == password:
@@ -128,7 +136,7 @@ def home():
                 
                 doctors = getdoctors()  
 
-                return render_template("home.html", username=username, IdPatient=user.getid(), doctors=doctors)  # Pass doctors to template
+                return render_template("home.html", username=username, IdPatient=user.getid(), doctors=doctors) 
          
     flash('Invalid username or password. Please try again.', 'error')
     return render_template('login.html')
@@ -143,55 +151,83 @@ def signup_page():
 
 
 
-@app.route("/signup", methods=['POST'])
+@app.route("/signup", methods=['GET', 'POST'])
 def signup():
-    global UserClass 
-    data = request.get_json()
-    username = data.get('username')
-    email = data.get('email')
-    password = data.get('password')
-    confirm = data.get('confirm')
-    
-    # Load existing users from JSON file
-    if os.path.exists('static/users.json'):
-        with open('static/users.json', 'r') as f:
-            users = json.load(f)
-    else:
-        users = []
+    if request.method == 'POST':
+        data = request.form  
+        username = data.get('username_sign')
+        email = data.get('email_signup')
+        password = data.get('password_signup')
+        confirm = data.get('password_conform')
+        
+        if os.path.exists('static/users.json'):
+            with open('static/users.json', 'r') as f:
+                try:
+                    users = json.load(f)
+                except json.JSONDecodeError:
+                    users = []
+        else:
+            users = []
+            
+        # Check if users is a list
+        if not isinstance(users, list):
+            users = []
 
-    # Generate a new patient ID safely
-    idPatient = max((user.get('idPatient', 0) for user in users), default=0) + 1
+        # Generate a new patient ID safely
+        idPatient = max((user.get('idPatient', 0) for user in users), default=0) + 1
+        
+        # Validate input fields
+        if not all([username, email, password, confirm]):
+            flash('Please fill in all fields.', 'error')
+            return render_template("signup.html")
+        
+        # Check for existing email
+        if any(user['email'] == email for user in users):
+            flash('Email already exists!', 'error')
+            return render_template("signup.html")
+            
+        # Validate password
+        if password != confirm:
+            flash('Passwords do not match!', 'error')
+            return render_template("signup.html")
+            
+        if len(password) < 8:
+            flash('Password must be at least 8 characters', 'error')
+            return render_template("signup.html")
+        if not re.search(r"[A-Z]", password):
+            flash('Password must contain at least one uppercase letter.', 'error')
+            return render_template("signup.html")
+        if not re.search(r"[a-z]", password):
+            flash("Password must contain at least one lowercase letter.", 'error')
+            return render_template("signup.html")
+        if not re.search(r"[0-9]", password):
+            flash("Password must contain at least one digit.", 'error')
+            return render_template("signup.html")
+        if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+            flash("Password must contain at least one special character.", 'error')
+            return render_template("signup.html")
 
-    # Validate input fields
-    if not all([username, email, password, confirm]):
-        return jsonify(message='Please fill in all fields.'), 400
+        # Create new user
+        new_user = {
+            'idPatient': idPatient,
+            'username': username,
+            'email': email,
+            'password': password
+        }
+        
+        users.append(new_user)
 
-    if password != confirm:
-        return jsonify(message='Passwords do not match!'), 400
+        # Save to file
+        try:
+            with open('static/users.json', 'w') as f:
+                json.dump(users, f, indent=4)
+            flash('Sign up successful!', 'success')
+            return redirect(url_for('login')) 
+        except Exception as e:
+            flash('An error occurred during registration.', 'error')
+            return render_template("signup.html")
 
-    if any(user['username'] == username for user in users):
-        return jsonify(message='Username already exists!'), 400
-
-    # Create user data and save to JSON
-    user_data = {
-        "idPatient": idPatient,
-        "username": username,
-        "email": email,
-        "password": password
-    }
-    users.append(user_data)
-    # UserClass = Users(idPatient, username, email, password)
-
-    with open('static/users.json', 'w') as f:
-        json.dump(users, f, indent=2)
-    
-    return jsonify({
-        'message': 'SignUp successful!',
-        'redirect': '/home'
-    }), 201
-
-
-
+    return render_template("signup.html")
    
 @app.route("/about")
 def about():
@@ -201,25 +237,36 @@ def about():
 #get booking page
 @app.route("/booking")
 def booking():
-    doctor_name=request.args.get('doctor_name')
-    doctor_id=request.args.get('doctor_id')
-    doctor=Doctor(doctor_id,doctor_name)
-    return render_template("booking.html" , doctor_name=doctor.get_name())  
+    doctor_name = request.args.get('doctor_name')
+    doctor_id = request.args.get('doctor_id')
+    doctor_specialization = request.args.get('doctor_specialization')
+    doctor=Doctor(doctor_id,doctor_name,doctor_specialization)
+    
+    return render_template("booking.html" , doctor_name=doctor.get_name(),specialization=doctor.get_specialization())  
 
 
 @app.route("/booking", methods=['POST'])
 def appointment():
     global IdPatient
     global number_appointment
+    
 
     if request.method == 'POST':
         data = request.get_json()
         
+        
         # Extract patient details from the JSON request
+        IdPatient=data.get("IdPatient")
+        name_doctor=data.get("doctorName")
+        specialization=data.get("doctor_specialization")
         name_patient = data.get("name_patient")
         age_patient = data.get("age_patient")
         Date = data.get("Date")
         Time = data.get("Time")
+
+
+        #set idpatient in session 
+        session['IdPatient'] = IdPatient
 
         # Validate input data
         if not name_patient or not isinstance(name_patient, str):
@@ -241,6 +288,8 @@ def appointment():
         # Create new appointment record
         new_appointment = {
             "NumberAppointment": number_appointment,
+            "name_doctor": name_doctor,
+            "specialization":specialization,
             "name_patient": name_patient,
             "age_patient": int(age_patient),  # Convert to integer
             "Date": {
@@ -264,7 +313,7 @@ def appointment():
                 patient_record["appointments"].append(new_appointment)
                 break
         
-        # If the patient was not found, create a new record
+        
         if not patient_found:
             new_patient_record = {
                 "IdPatient": IdPatient,
@@ -272,7 +321,7 @@ def appointment():
             }
             appointments.append(new_patient_record)
 
-        # Save the updated appointments back to the JSON file
+        
         with open('static/appointment.json', 'w') as f:
             json.dump(appointments, f, indent=4)
 
@@ -351,7 +400,8 @@ def veiw_booking():
 
     # Handle GET request
     elif request.method == 'GET':
-        IdPatient=user.getid()
+        
+        IdPatient = session.get('IdPatient')
         try:
             with open('static/appointment.json', 'r') as f:
                 appointments_data = json.load(f)
