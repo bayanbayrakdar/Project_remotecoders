@@ -1,72 +1,122 @@
 [
-    {
-        "IdPatient": 1,
-        "appointments": [
-            {
-                "NumberAppointment": 1,
-                "name_doctor": "Dr. Emily Davis",
-                "specialization": "Pediatrics",
-                "name_patient": "beno",
-                "age_patient": 8,
-                "Date": {
-                    "day": "9",
-                    "month": "October",
-                    "year": "2024"
-                },
-                "Time": {
-                    "Hour": "21",
-                    "Minute": "19"
-                }
-            },
-            {
-                "NumberAppointment": 2,
-                "name_patient": "kk",
-                "age_patient": "2",
-                "Date": {
-                    "day": 11,
-                    "month": 10,
-                    "year": 2024
-                },
-                "Time": {
-                    "Hour": 22,
-                    "Minute": 21
-                }
-            }
-        ]
-    },
-    {
-        "IdPatient": 2,
-        "appointments": [
-            {
-                "NumberAppointment": 3,
-                "name_patient": "kk",
-                "age_patient": "1",
-                "Date": {
-                    "day": 11,
-                    "month": 10,
-                    "year": 2024
-                },
-                "Time": {
-                    "Hour": 22,
-                    "Minute": 23
-                }
-            },
-            {
-                "NumberAppointment": 4,
-                "name_doctor": "Dr. Emily Davis",
-                "specialization": "Pediatrics",
-                "name_patient": "beno",
-                "age_patient": 8,
-                "Date": {
-                    "day": "10",
-                    "month": "October",
-                    "year": "2024"
-                },
-                "Time": {
-                    "Hour": "21",
-                    "Minute": "19"
-                }
-            }
-        ]
-    }
+  {
+    "IdPatient": 1,
+    "appointments": [
+      {
+        "NumberAppointment": 1,
+        "name_doctor": "Dr. Emily Davis",
+        "specialization": "Pediatrics",
+        "name_patient": "beno",
+        "age_patient": 8,
+        "Date": {
+          "day": "9",
+          "month": "October",
+          "year": "2024"
+        },
+        "Time": {
+          "Hour": "21",
+          "Minute": "19"
+        }
+      },
+      {
+        "NumberAppointment": 2,
+        "name_patient": "kk",
+        "age_patient": "2",
+        "Date": {
+          "day": 11,
+          "month": 10,
+          "year": 2024
+        },
+        "Time": {
+          "Hour": 22,
+          "Minute": 21
+        }
+      }
+    ]
+  },
+  {
+    "IdPatient": 2,
+    "appointments": [
+      {
+        "NumberAppointment": 9,
+        "name_doctor": [],
+        "specialization": "Cardiology",
+        "name_patient": "d",
+        "age_patient": "2",
+        "Date": {
+          "day": 11,
+          "month": 10,
+          "year": 2024
+        },
+        "Time": {
+          "Hour": 23,
+          "Minute": 47
+        }
+      },
+      {
+        "NumberAppointment": 13,
+        "name_doctor": [],
+        "specialization": "Cardiology",
+        "name_patient": "d",
+        "age_patient": "2",
+        "Date": {
+          "day": 3,
+          "month": 10,
+          "year": 2024
+        },
+        "Time": {
+          "Hour": 23,
+          "Minute": 56
+        }
+      },
+      {
+        "NumberAppointment": 14,
+        "name_doctor": [],
+        "specialization": "Orthopedics",
+        "name_patient": "rr",
+        "age_patient": "5",
+        "Date": {
+          "day": 10,
+          "month": 10,
+          "year": 2024
+        },
+        "Time": {
+          "Hour": 23,
+          "Minute": 57
+        }
+      },
+      {
+        "NumberAppointment": 17,
+        "name_doctor": [],
+        "specialization": "Neurology",
+        "name_patient": "gg",
+        "age_patient": "3",
+        "Date": {
+          "day": 3,
+          "month": 10,
+          "year": 2024
+        },
+        "Time": {
+          "Hour": 0,
+          "Minute": 1
+        }
+      },
+      {
+        "NumberAppointment": 18,
+        "name_doctor": [],
+        "specialization": "Cardiology",
+        "name_patient": "m",
+        "age_patient": "66",
+        "Date": {
+          "day": 10,
+          "month": 10,
+          "year": 2024
+        },
+        "Time": {
+          "Hour": 0,
+          "Minute": 11
+        }
+      }
+    ]
+  }
 ]

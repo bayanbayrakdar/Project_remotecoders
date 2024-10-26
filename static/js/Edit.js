@@ -13,14 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle form submission
     form.addEventListener('submit', (event) => {
         event.preventDefault(); // Prevent form from submitting traditionally
-        
+
         const IdPatient = form.getAttribute('data-id');
-        
+
         // Get form values
         const namePatient = document.getElementById('newname_patient').value;
         const agePatient = document.getElementById('newage_patient').value;
         const dateTimeInput = document.getElementById('cal').value;
-        
+
         // Split datetime into date and time
         const dateTime = new Date(dateTimeInput);
         const newdata = dateTime.toLocaleDateString();
@@ -29,12 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Save to localStorage if needed
         localStorage.setItem("newdata", newdata);
         localStorage.setItem("newtime", newtime);
-        
+
         addRow(IdPatient);
         hideModal();
     });
 });
-
 
 
 function addRow(IdPatient) {
@@ -44,14 +43,25 @@ function addRow(IdPatient) {
     const newtime = localStorage.getItem("newtime");
     const namePatient = document.getElementById('newname_patient').value;
     const agePatient = document.getElementById('newage_patient').value;
+    const specializationSelect = document.getElementById('specialization-select');
+    const selectedSpecialization = specializationSelect.value;
+
+    const newRow = table.insertRow();
+    
+    // Define single cell content
+    const cellContent = IdPatient; // Just inserting the IdPatient
+    
+    // Insert single cell
+    const cell = newRow.insertCell(0);
+    cell.innerHTML = cellContent;
 
     const appointmentData = {
         namePatient: namePatient,
         agePatient: agePatient,
+        selectedSpecialization: selectedSpecialization,
         appointmentDate: newdata,
         appointmentTime: newtime
     };
-
 
     // Send to server
     fetch('/veiw_booking', {
@@ -61,22 +71,18 @@ function addRow(IdPatient) {
         },
         body: JSON.stringify(appointmentData)
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok.');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-        // const cell2 = newRow.cells[1];
-        // cell2.innerText = data.numberapp;
-        // Remove the redirect to keep user on the same page
-        // window.location.href = "/veiw_booking";
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
 
@@ -106,7 +112,7 @@ function GetCal(event) {
 
 //this is for backend to edit 
 document.addEventListener('click', (e) => {
-    
+
 
     if (e.target.getAttribute('id') === 'buttonEDit') {
         showModaledit();
@@ -169,7 +175,7 @@ function updateTable(IdPatient, appointmentId, date, time) {
             return response.json();
         })
         .then(data => {
-            alert(data.message); 
+            alert(data.message);
             if (data.success) {
             }
         })
@@ -183,23 +189,23 @@ function updateTable(IdPatient, appointmentId, date, time) {
 
 document.addEventListener('click', (e) => {
     e.stopPropagation();
-    
+
     if (e.target.getAttribute('id') === 'buttonDELET') {
         e.preventDefault();
-        
+
         const appointmentId = e.target.getAttribute("appointment_id");
         const row = e.target.closest('tr');
-        const IdPatient = row.cells[0].innerText; 
+        const IdPatient = row.cells[0].innerText;
 
-        
+
         localStorage.setItem("appointmentIddelete", appointmentId);
         localStorage.setItem("IdPatientdelete", IdPatient);
-        
-        
+
+
         const storedAppointmentId = localStorage.getItem("appointmentIddelete");
         const storedIdPatient = localStorage.getItem("IdPatientdelete");
         removeRow(storedIdPatient, storedAppointmentId);
-        
+
         // Remove the row from the UI
         removerow(e.target);
     }
@@ -219,7 +225,7 @@ function removeRow(IdPatient, appointmentId) {
         IdPatient: IdPatient,
         appointmentId: appointmentId,
     };
-    
+
     fetch('/delete', {
         method: 'DELETE',
         headers: {
@@ -227,19 +233,19 @@ function removeRow(IdPatient, appointmentId) {
         },
         body: JSON.stringify(removedata)
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        alert(data.message);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error deleting appointment');
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error deleting appointment');
+        });
 }
 
 

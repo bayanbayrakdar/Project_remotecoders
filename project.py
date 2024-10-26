@@ -365,6 +365,9 @@ def veiw_booking():
         NewAge = data['agePatient']
         NewDate = data['appointmentDate']     
         NewTime = data['appointmentTime']  
+        specialization=data['selectedSpecialization'].strip()
+        print(specialization)
+
  
         NewDate = datetime.strptime(NewDate, '%Y-%m-%d')
         NewTime = datetime.strptime(NewTime, '%H:%M:%S')  
@@ -372,11 +375,25 @@ def veiw_booking():
                                 
         with open('static/appointment.json', 'r') as f:
             appointments = json.load(f)
-            
-        number_appointment = max((num.get('NumberAppointment', 0) for patient in appointments for num in patient.get('appointments', [])), default=0) + 1
-        
+
+        with open('static/appointment.json', 'r') as f:
+            doctor_File = json.load(f)
+
+        number_appointment = max(
+            (num.get('NumberAppointment', 0) for patient in appointments for num in patient.get('appointments', [])), 
+            default=0
+        ) + 1
+
+        name_doctor = [
+        doctor['name'] for doctor in doctor_File
+        if 'specialization' in doctor and doctor['specialization'].strip().lower() == specialization
+           ]
+
+
         new_appointment_view = {
             "NumberAppointment": number_appointment,
+            "name_doctor": name_doctor,
+            "specialization":specialization,
             "name_patient": NewName,
             "age_patient": NewAge,
             "Date": {
