@@ -270,7 +270,7 @@ def booking():
 @app.route("/booking", methods=['POST'])
 def appointment():
     global IdPatient
-    global number_appointment
+    
     
 
     if request.method == 'POST':
@@ -288,7 +288,7 @@ def appointment():
 
 
         #set idpatient in session 
-        session['IdPatient'] = IdPatient
+        IdPatient=session.get('IdPatient')
 
         # Validate input data
         if not name_patient or not isinstance(name_patient, str):
@@ -297,12 +297,12 @@ def appointment():
         if not isinstance(age_patient, str) or not age_patient.isnumeric():
             return jsonify(message='Invalid age provided; must be a number'), 400
         
-        # Load existing appointments from JSON file
+       
         with open('static/appointment.json', 'r') as f:
             try:
                 appointments = json.load(f)
             except json.JSONDecodeError:
-                appointments = []  # Handle JSON decoding errors
+                appointments = []  
 
         # Determine the next appointment number
         number_appointment = max((num.get('NumberAppointment', 0) for patient in appointments for num in patient.get('appointments', [])), default=0) + 1
@@ -313,7 +313,7 @@ def appointment():
             "name_doctor": name_doctor,
             "specialization":specialization,
             "name_patient": name_patient,
-            "age_patient": int(age_patient),  # Convert to integer
+            "age_patient": int(age_patient), 
             "Date": {
                 "day": Date["day"],
                 "month": Date["month"],
@@ -359,7 +359,7 @@ def veiw_booking():
 
     if request.method == 'POST':
         data = request.get_json()
-        print(data)
+        
         
         NewName = data['namePatient']
         NewAge = data['agePatient']
@@ -368,7 +368,7 @@ def veiw_booking():
  
         NewDate = datetime.strptime(NewDate, '%Y-%m-%d')
         NewTime = datetime.strptime(NewTime, '%H:%M:%S')  
-        print(NewAge)          
+                 
                                 
         with open('static/appointment.json', 'r') as f:
             appointments = json.load(f)
@@ -389,7 +389,7 @@ def veiw_booking():
                 "Minute": NewTime.minute
             }
         }
-        print(new_appointment_view)
+        
 
         # Find the patient by IdPatient and append the new appointment
         patient_found = False
@@ -424,6 +424,7 @@ def veiw_booking():
     elif request.method == 'GET':
         
         IdPatient = session.get('IdPatient')
+        print(IdPatient)
         try:
             with open('static/appointment.json', 'r') as f:
                 appointments_data = json.load(f)
@@ -431,6 +432,8 @@ def veiw_booking():
             # Find appointments for the current patient
             patient_appointments = []
             for patient_record in appointments_data:
+                print(patient_record)
+                print(patient_record["IdPatient"] )
                 if patient_record["IdPatient"] == IdPatient:
                     patient_appointments = patient_record["appointments"]
                    

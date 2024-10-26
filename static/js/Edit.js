@@ -1,65 +1,57 @@
-
 document.addEventListener('DOMContentLoaded', () => {
-    
-    const namePatient = document.getElementById('name_patient');
-    const agePatient = document.getElementById('age_patient');
+    const form = document.getElementById('booking');
+    const modal = document.getElementById('modal');
 
-    
-    document.getElementById('booking').addEventListener('submit', (event) => {
-        event.preventDefault(); 
+    // Handle Add Button click
+    document.addEventListener('click', (event) => {
+        if (event.target.getAttribute('id') === 'AddButton') {
+            event.preventDefault();
+            showModal();
+        }
+    });
+
+    // Handle form submission
+    form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent form from submitting traditionally
         
-        localStorage.setItem("name_patientnew", namePatient.innerText);
-        localStorage.setItem("age_patientnew", agePatient.innerText);
+        const IdPatient = form.getAttribute('data-id');
+        
+        // Get form values
+        const namePatient = document.getElementById('newname_patient').value;
+        const agePatient = document.getElementById('newage_patient').value;
+        const dateTimeInput = document.getElementById('cal').value;
+        
+        // Split datetime into date and time
+        const dateTime = new Date(dateTimeInput);
+        const newdata = dateTime.toLocaleDateString();
+        const newtime = dateTime.toLocaleTimeString();
+
+        // Save to localStorage if needed
+        localStorage.setItem("newdata", newdata);
+        localStorage.setItem("newtime", newtime);
+        
+        addRow(IdPatient);
+        hideModal();
     });
 });
 
+
+
 function addRow(IdPatient) {
-
-
-
-
     const table = document.getElementById('outputTable').getElementsByTagName('tbody')[0];
-    
 
-    const namePatient = localStorage.getItem("name_patientnew");
-    const agePatient = localStorage.getItem("age_patientnew");
-    console.log( namePatient)
-    
     const newdata = localStorage.getItem("newdata");
     const newtime = localStorage.getItem("newtime");
+    const namePatient = document.getElementById('newname_patient').value;
+    const agePatient = document.getElementById('newage_patient').value;
 
-    // Create new row
-    const newRow = table.insertRow();
-
-    // Insert cells
-    const cell1 = newRow.insertCell(0);
-    const cell2 = newRow.insertCell(1);
-    const cell3 = newRow.insertCell(2);
-    const cell4 = newRow.insertCell(3);
-    const cell5 = newRow.insertCell(4);
-    const cell6 = newRow.insertCell(5);
-    const cell7 = newRow.insertCell(6);
-
-   
     const appointmentData = {
-        namePatient: namePatient.innerHTML,
-        agePatient: agePatient.innerHTML,
+        namePatient: namePatient,
+        agePatient: agePatient,
         appointmentDate: newdata,
         appointmentTime: newtime
     };
 
-    
-    cell1.innerText = IdPatient;  
-    cell2.innerHTML = '';
-    cell3.innerHTML = namePatient.innerText;
-    cell4.innerHTML = agePatient.innerText;
-    cell5.innerHTML = newdata || "No Date";
-    cell6.innerHTML = newtime || "No Time";
-    cell7.innerHTML = `
-        <button class="save">Save</button>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit</button>
-        <button class="delete" onclick="removeRow(this)">Delete</button>
-    `;
 
     // Send to server
     fetch('/veiw_booking', {
@@ -69,29 +61,27 @@ function addRow(IdPatient) {
         },
         body: JSON.stringify(appointmentData)
     })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
+    .then(response => {
+        if (!response.ok) {
             throw new Error('Network response was not ok.');
-        })
-        .then(data => {
-            console.log('Success:', data);
-            // Update the appointment number after server response
-            cell2.innerHTML = data.numberapp;
-            window.location.href = "/veiw_booking";
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        // const cell2 = newRow.cells[1];
+        // cell2.innerText = data.numberapp;
+        // Remove the redirect to keep user on the same page
+        // window.location.href = "/veiw_booking";
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 }
 
 
 
 
-
-
-// Your existing event listeners
 const formtable = document.getElementById('booking');
 if (formtable) {
     const IdPatient = formtable.getAttribute("data-id");
@@ -105,8 +95,6 @@ if (formtable) {
     console.error('Booking form not found');
 }
 
-// const cal=document.getElementById("cal")
-// console.log(cal.value)
 function GetCal(event) {
     event.preventDefault()
     const cal = document.getElementById("caledit")

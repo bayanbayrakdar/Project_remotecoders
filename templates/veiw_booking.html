@@ -63,8 +63,8 @@
 
 
 
-    <div class="button-container" id="button">
-        <button type="submit" class="btn btn-success" onclick="showModal()">Add new</button>
+    <div class="button-container" >
+        <button id="AddButton" type="button" class="btn btn-success" >Add new</button>
     </div>
 
 
@@ -76,17 +76,15 @@
         <form id="booking" method="POST" action="/veiw_booking" data-id="{{IdPatient}}">
 
             <div class="model-body">
-                <input name="patientname" id="name_patient" type="text" placeholder="Please Enter name patient" required>
+                <input name="patientname" id="newname_patient" type="text" placeholder="Please Enter name patient" required>
                 <br><br>
-                <input name="patientage" id="age_patient" type="text" placeholder="Please Enter age patient" required>
+                <input name="patientage" id="newage_patient" type="text" placeholder="Please Enter age patient" required>
 
                 <br><br>
                 <input name="date" id="cal" type="datetime-local" onclick="showCal()">
 
                 <div class="text-center">
-                    <button  type="submit" class="btn btn-danger" id="newbooking_button" >Confirm
-                        Booking</button>
-
+                    <button  type="submit" class="btn btn-danger" id="newbooking_button" >Confirm Booking</button>
                 </div>
             </div>
         </form>

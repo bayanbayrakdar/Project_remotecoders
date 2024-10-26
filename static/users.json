@@ -4,5 +4,11 @@
         "username": "mohamad",
         "email": "moh@gmail.com",
         "password": "Mohamad@123"
+    },
+    {
+        "idPatient": 2,
+        "username": "bayan",
+        "email": "bayan.bayrakdar98@gmail.com",
+        "password": "Bayan@123"
     }
 ]
