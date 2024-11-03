@@ -30,10 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("newdata", newdata);
         localStorage.setItem("newtime", newtime);
 
-        addRow(IdPatient);
+        // addRow(IdPatient);
         hideModal();
     });
 });
+
 
 
 function addRow(IdPatient) {
@@ -47,13 +48,39 @@ function addRow(IdPatient) {
     const selectedSpecialization = specializationSelect.value;
 
     const newRow = table.insertRow();
+
+    // Insert cells
+    const cell1 = newRow.insertCell(0);
+    const cell2 = newRow.insertCell(1);
+    const cell3 = newRow.insertCell(2);
+    const cell4 = newRow.insertCell(3);
+    const cell5 = newRow.insertCell(4);
+    const cell6 = newRow.insertCell(5);
+    const cell7 = newRow.insertCell(6);
+    const cell8 = newRow.insertCell(7);
+    const cell9 = newRow.insertCell(8);
+
+
+
+
+    cell1.innerHTML = IdPatient;
+    cell2.innerHTML = '';
+    cell3.innerHTML = ''
+    cell4.innerHTML = selectedSpecialization
+    cell5.innerHTML = namePatient
+    cell6.innerHTML = agePatient
+    cell7.innerHTML = newdata || "No Date";
+    cell8.innerHTML = newtime || "No Time";
+    cell9.innerHTML = `
+        <button class="save">Save</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit</button>
+        <button class="delete" onclick="removeRow(this)">Delete</button>
+    `;
+
+
+
+
     
-    // Define single cell content
-    const cellContent = IdPatient; // Just inserting the IdPatient
-    
-    // Insert single cell
-    const cell = newRow.insertCell(0);
-    cell.innerHTML = cellContent;
 
     const appointmentData = {
         namePatient: namePatient,
@@ -62,6 +89,7 @@ function addRow(IdPatient) {
         appointmentDate: newdata,
         appointmentTime: newtime
     };
+    
 
     // Send to server
     fetch('/veiw_booking', {
@@ -73,13 +101,16 @@ function addRow(IdPatient) {
     })
         .then(response => {
             if (!response.ok) {
+                console.log(appointmentData)
                 throw new Error('Network response was not ok.');
+
+                
             }
+            window.location.href='/veiw_booking'
             return response.json();
+            
         })
-        .then(data => {
-            console.log('Success:', data);
-        })
+        
         .catch((error) => {
             console.error('Error:', error);
         });
@@ -279,14 +310,18 @@ function showCal() {
     }
 }
 
-// Your existing datetime event listener
+
 document.addEventListener("DOMContentLoaded", function () {
     // Get input elements
     const input = document.getElementById('cal');
 
     input.addEventListener('change', function () {
         const dateTime = new Date(this.value);
-        const date = dateTime.toISOString().split('T')[0];
+        
+        const month = (dateTime.getMonth() + 1).toString().padStart(2, '0');
+        const day = dateTime.getDate().toString().padStart(2, '0');
+        const year = dateTime.getFullYear();
+        const date = `${month}-${day}-${year}`;
         const time = dateTime.toTimeString().split(' ')[0];
         localStorage.setItem("newdata", date);
         localStorage.setItem("newtime", time);

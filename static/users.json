@@ -10,5 +10,17 @@
         "username": "bayan",
         "email": "bayan.bayrakdar98@gmail.com",
         "password": "Bayan@123"
+    },
+    {
+        "idPatient": 3,
+        "username": "belal",
+        "email": "bel@gmail.com",
+        "password": "Belal@123"
+    },
+    {
+        "idPatient": 4,
+        "username": "bayan",
+        "email": "bayan.bayrakda998@gmail.com",
+        "password": "Bayan@123"
     }
 ]

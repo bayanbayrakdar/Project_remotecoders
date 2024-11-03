@@ -201,7 +201,7 @@ def login():
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-    print(session.get("IdPatient"))
+    
     if request.method == 'POST':
                 username = request.form.get("username_login")
                 password = request.form.get("password_login")
@@ -228,11 +228,11 @@ def home():
                 return render_template('login.html')
         
     else:
-        print(session["IdPatient"])
+        
 
         username = session.get("username")  
         doctors = getdoctors() 
-        print(username) 
+        
         return render_template("home.html", username=username, IdPatient=session["IdPatient"], doctors=doctors)
     
 
@@ -365,18 +365,18 @@ def veiw_booking():
         NewAge = data['agePatient']
         NewDate = data['appointmentDate']     
         NewTime = data['appointmentTime']  
-        specialization=data['selectedSpecialization'].strip()
-        print(specialization)
+        specialization=data['selectedSpecialization']
+       
 
  
-        NewDate = datetime.strptime(NewDate, '%Y-%m-%d')
+        NewDate = datetime.strptime(NewDate, '%m-%d-%Y')
         NewTime = datetime.strptime(NewTime, '%H:%M:%S')  
                  
                                 
         with open('static/appointment.json', 'r') as f:
             appointments = json.load(f)
 
-        with open('static/appointment.json', 'r') as f:
+        with open('static/doctors.json', 'r') as f:
             doctor_File = json.load(f)
 
         number_appointment = max(
@@ -384,10 +384,14 @@ def veiw_booking():
             default=0
         ) + 1
 
-        name_doctor = [
-        doctor['name'] for doctor in doctor_File
-        if 'specialization' in doctor and doctor['specialization'].strip().lower() == specialization
-           ]
+        
+
+        for doctor in doctor_File:
+            
+            if doctor["specialization"] == specialization:
+                
+                name_doctor = doctor["name"]
+
 
 
         new_appointment_view = {
@@ -430,18 +434,24 @@ def veiw_booking():
         with open('static/appointment.json', 'w') as f:
             json.dump(appointments, f, indent=2)
 
-        return jsonify({
+        jsonify({
             "message": "New appointment recorded successfully",
             "IdPatient": IdPatient,
             "numberapp": number_appointment,
             "status": 200
         })
 
+        return render_template(
+                "veiw_booking.html",
+                appointment=number_appointment,
+                name_doctor=name_doctor
+            )
+
     # Handle GET request
     elif request.method == 'GET':
         
         IdPatient = session.get('IdPatient')
-        print(IdPatient)
+        
         try:
             with open('static/appointment.json', 'r') as f:
                 appointments_data = json.load(f)
@@ -449,8 +459,7 @@ def veiw_booking():
             # Find appointments for the current patient
             patient_appointments = []
             for patient_record in appointments_data:
-                print(patient_record)
-                print(patient_record["IdPatient"] )
+
                 if patient_record["IdPatient"] == IdPatient:
                     patient_appointments = patient_record["appointments"]
                    
@@ -464,21 +473,21 @@ def veiw_booking():
             )
             
         except FileNotFoundError:
-            print("Appointment file not found")
+            
             return render_template(
                 "veiw_booking.html",
                 appointments=[],
                 IdPatient=IdPatient
             )
         except json.JSONDecodeError:
-            print("Error decoding appointment file")
+            
             return render_template(
                 "veiw_booking.html",
                 appointments=[],
                 IdPatient=IdPatient
             )
         except Exception as e:
-            print(f"Unexpected error: {e}")
+            
             return render_template(
                 "veiw_booking.html",
                 appointments=[],

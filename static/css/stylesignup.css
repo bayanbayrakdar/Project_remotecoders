@@ -1,98 +1,147 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
 body {
-    background-color: #f0f4f8; /* Soft background color */
+    background-color: #f0f4f8;
+    /* Soft background color */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full height */
-    font-family: 'Roboto', sans-serif; /* Modern font */
-    margin: 0; /* Remove default margin */
+    height: 100vh;
+    /* Full height */
+    font-family: 'Roboto', sans-serif;
+    /* Modern font */
+    margin: 0;
+    /* Remove default margin */
 }
 
 .signup_box {
     width: 360px;
-    height: auto; /* Allow height to adjust based on content */
-    padding: 30px; /* Padding for inner content */
-    background-color: #ffffff; /* White background for contrast */
-    border-radius: 20px; /* Rounded corners */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    text-align: center; /* Center text */
+    height: auto;
+    /* Allow height to adjust based on content */
+    padding: 30px;
+    /* Padding for inner content */
+    background-color: #ffffff;
+    /* White background for contrast */
+    border-radius: 20px;
+    /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    text-align: center;
+    /* Center text */
 }
 
 h1 {
-    font-size: 24px; /* Larger heading */
-    color: #333; /* Dark text for contrast */
+    font-size: 24px;
+    /* Larger heading */
+    color: #333;
+    /* Dark text for contrast */
 }
 
 h4 {
-    font-size: 16px; /* Smaller subheading */
-    color: #555; /* Medium gray for subheading */
+    font-size: 16px;
+    /* Smaller subheading */
+    color: #555;
+    /* Medium gray for subheading */
 }
 
 form {
-    width: 100%; /* Full width for the form */
-    margin: 20px 0; /* Space around the form */
+    width: 100%;
+    /* Full width for the form */
+    margin: 20px 0;
+    /* Space around the form */
 }
 
 form label {
-    display: block; /* Block for full width */
-    margin-top: 15px; /* Space above each label */
-    font-size: 16px; /* Font size for labels */
-    color: #333; /* Dark text */
+    display: block;
+    /* Block for full width */
+    margin-top: 15px;
+    /* Space above each label */
+    font-size: 16px;
+    /* Font size for labels */
+    color: #333;
+    /* Dark text */
 }
 
 form input {
-    width: 100%; /* Full width inputs */
-    padding: 10px; /* Padding for inputs */
-    border: 1px solid #ccc; /* Light border */
-    border-radius: 10px; /* Rounded corners */
-    outline: none; /* Remove outline */
-    transition: border 0.3s; /* Smooth border transition */
+    width: 100%;
+    /* Full width inputs */
+    padding: 10px;
+    /* Padding for inputs */
+    border: 1px solid #ccc;
+    /* Light border */
+    border-radius: 10px;
+    /* Rounded corners */
+    outline: none;
+    /* Remove outline */
+    transition: border 0.3s;
+    /* Smooth border transition */
 }
 
 form input:focus {
-    border: 1px solid rgb(26, 69, 209); /* Change border color on focus */
+    border: 1px solid rgb(26, 69, 209);
+    /* Change border color on focus */
 }
 
 input[type="button"] {
-    background-color: rgb(26, 69, 209); /* Button color */
-    margin-top: 20px; /* Space above button */
-    width: 100%; /* Full width */
-    height: 45px; /* Increased height for better interaction */
-    color: white; /* White text */
-    font-size: 16px; /* Larger font for button */
-    font-weight: bold; /* Bold text */
-    border: none; /* Remove default border */
-    border-radius: 10px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor */
-    transition: background-color 0.3s; /* Smooth background transition */
+    background-color: rgb(26, 69, 209);
+    /* Button color */
+    margin-top: 20px;
+    /* Space above button */
+    width: 100%;
+    /* Full width */
+    height: 45px;
+    /* Increased height for better interaction */
+    color: white;
+    /* White text */
+    font-size: 16px;
+    /* Larger font for button */
+    font-weight: bold;
+    /* Bold text */
+    border: none;
+    /* Remove default border */
+    border-radius: 10px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Pointer cursor */
+    transition: background-color 0.3s;
+    /* Smooth background transition */
 }
 
 input[type="button"]:hover {
-    background-color: rgb(20, 50, 160); /* Darker color on hover */
+    background-color: rgb(20, 50, 160);
+    /* Darker color on hover */
 }
 
 p {
-    text-align: center; /* Centered text */
-    padding-top: 20px; /* Space above paragraph */
-    font-size: 14px; /* Font size for paragraph */
-    color: #777; /* Lighter gray for paragraph text */
+    text-align: center;
+    /* Centered text */
+    padding-top: 20px;
+    /* Space above paragraph */
+    font-size: 14px;
+    /* Font size for paragraph */
+    color: #777;
+    /* Lighter gray for paragraph text */
 }
 
 .wrapper {
     display: flex;
-    justify-content: center; /* Center content */
-    align-items: center; /* Vertically center items */
+    justify-content: center;
+    /* Center content */
+    align-items: center;
+    /* Vertically center items */
 }
 
 i {
-    position: absolute; /* Absolute positioning */
-    right: 20px; /* Align icon to the right */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Adjust for centering */
-    font-size: 20px; /* Icon size */
-    color: #aaa; /* Light gray for icons */
+    position: absolute;
+    /* Absolute positioning */
+    right: 20px;
+    /* Align icon to the right */
+    top: 50%;
+    /* Center vertically */
+    transform: translateY(-50%);
+    /* Adjust for centering */
+    font-size: 20px;
+    /* Icon size */
+    color: #aaa;
+    /* Light gray for icons */
 }
 
 
@@ -101,28 +150,33 @@ i {
     margin: 5px 0;
     font-size: 14px;
 }
+
 .success {
     color: green;
     margin: 5px 0;
     font-size: 14px;
 }
+
 .signup_box {
     max-width: 500px;
     margin: 50px auto;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
+
 .signup_box form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
+
 .signup_box input {
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
+
 .signup_box button {
     padding: 10px;
     background-color: #007bff;
@@ -131,9 +185,11 @@ i {
     border-radius: 4px;
     cursor: pointer;
 }
+
 .signup_box button:hover {
     background-color: #0056b3;
 }
+
 .flash-messages {
     list-style: none;
     padding: 0;
@@ -144,6 +200,7 @@ i {
     .signup_box {
         padding: 1.5rem;
     }
+
     button {
         padding: 0.6rem;
     }
@@ -156,5 +213,207 @@ i {
 
     button {
         padding: 0.6rem;
+    }
+}
+
+@media screen and (min-width=1px) and (max-width=768px) {
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    body {
+        background-color: #f0f4f8;
+        /* Soft background color */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        /* Full height */
+        font-family: 'Roboto', sans-serif;
+        /* Modern font */
+        margin: 0;
+        /* Remove default margin */
+    }
+
+    .signup_box {
+        width: 360px;
+        height: auto;
+        /* Allow height to adjust based on content */
+        padding: 30px;
+        /* Padding for inner content */
+        background-color: #ffffff;
+        /* White background for contrast */
+        border-radius: 20px;
+        /* Rounded corners */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        /* Subtle shadow */
+        text-align: center;
+        /* Center text */
+    }
+
+    h1 {
+        font-size: 24px;
+        /* Larger heading */
+        color: #333;
+        /* Dark text for contrast */
+    }
+
+    h4 {
+        font-size: 16px;
+        /* Smaller subheading */
+        color: #555;
+        /* Medium gray for subheading */
+    }
+
+    form {
+        width: 100%;
+        /* Full width for the form */
+        margin: 20px 0;
+        /* Space around the form */
+    }
+
+    form label {
+        display: block;
+        /* Block for full width */
+        margin-top: 15px;
+        /* Space above each label */
+        font-size: 16px;
+        /* Font size for labels */
+        color: #333;
+        /* Dark text */
+    }
+
+    form input {
+        width: 100%;
+        /* Full width inputs */
+        padding: 10px;
+        /* Padding for inputs */
+        border: 1px solid #ccc;
+        /* Light border */
+        border-radius: 10px;
+        /* Rounded corners */
+        outline: none;
+        /* Remove outline */
+        transition: border 0.3s;
+        /* Smooth border transition */
+    }
+
+    form input:focus {
+        border: 1px solid rgb(26, 69, 209);
+        /* Change border color on focus */
+    }
+
+    input[type="button"] {
+        background-color: rgb(26, 69, 209);
+        /* Button color */
+        margin-top: 20px;
+        /* Space above button */
+        width: 100%;
+        /* Full width */
+        height: 45px;
+        /* Increased height for better interaction */
+        color: white;
+        /* White text */
+        font-size: 16px;
+        /* Larger font for button */
+        font-weight: bold;
+        /* Bold text */
+        border: none;
+        /* Remove default border */
+        border-radius: 10px;
+        /* Rounded corners */
+        cursor: pointer;
+        /* Pointer cursor */
+        transition: background-color 0.3s;
+        /* Smooth background transition */
+    }
+
+    input[type="button"]:hover {
+        background-color: rgb(20, 50, 160);
+        /* Darker color on hover */
+    }
+
+    p {
+        text-align: center;
+        /* Centered text */
+        padding-top: 20px;
+        /* Space above paragraph */
+        font-size: 14px;
+        /* Font size for paragraph */
+        color: #777;
+        /* Lighter gray for paragraph text */
+    }
+
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        /* Center content */
+        align-items: center;
+        /* Vertically center items */
+    }
+
+    i {
+        position: absolute;
+        /* Absolute positioning */
+        right: 20px;
+        /* Align icon to the right */
+        top: 50%;
+        /* Center vertically */
+        transform: translateY(-50%);
+        /* Adjust for centering */
+        font-size: 20px;
+        /* Icon size */
+        color: #aaa;
+        /* Light gray for icons */
+    }
+
+
+    .error {
+        color: red;
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    .success {
+        color: green;
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    .signup_box {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+
+    .signup_box form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .signup_box input {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .signup_box button {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .signup_box button:hover {
+        background-color: #0056b3;
+    }
+
+    .flash-messages {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0;
     }
 }

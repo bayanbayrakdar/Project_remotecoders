@@ -37,12 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem("doctor_name", doctorName);
         localStorage.setItem("doctor_specialization", doctorSpecialization);
 
-        // Logging to verify
-        console.log("Doctor's name saved:", doctorName);
-        console.log("Doctor's specialization saved:", doctorSpecialization);
-    } else {
-        console.log("Doctor name or specialization element not found.");
-    }
+
+    } 
 
 
         if (username) {
@@ -55,11 +51,11 @@ document.addEventListener('DOMContentLoaded', function () {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Success:', data);
+                    
 
                 })
                 .catch((error) => {
-                    console.error('Error:', error);
+                    
                 });
         }
     });
@@ -95,7 +91,7 @@ function displayMin() {
 }
 
 function changeTime(count) {
-    currentHour += count; // Adjust the hour based on count
+    currentHour += count; 
 
     if (currentHour < 0) {
         currentHour = 23; // Wrap around to 23 if going below 0
@@ -104,7 +100,7 @@ function changeTime(count) {
         currentHour = 0; // Wrap around to 0 if exceeding 23
 
     }
-    displayTime(); // Update the display
+    displayTime(); 
     localStorage.setItem("Hour", currentHour)
 }
 function changeMin(count) {
@@ -204,7 +200,7 @@ const checkInput = (event) => {
 
         successMessage.innerHTML = data.message;
     }).catch(error => {
-        console.error('Error:', error);
+       
 
     })
 }
